@@ -2,7 +2,7 @@
 	"use strict";
 	// behold we're about to do slow stuff
 	if(!doc.querySelectorAll) doc.write('<script src="https://raw.github.com/chjj/zest/master/lib/zest.js"><\/script>');
-	var query = doc.querySelectorAll || zest;
+	var query = function() { return (doc.querySelectorAll || zest).apply(doc, arguments) };
 	// and we're fast again
 	var cssTokenizer = /([^{]+)\s*\{\s*([^}]+)\s*}/g;
 	var isWhiteSpaceCssBlock = /white-space\s*:\s*none\s*;/;
@@ -31,13 +31,15 @@
 
 
 	function removeWhiteSpace() {
-		console.dir(arguments);
+		//console.dir(arguments);
 		iterator.call(arguments, function(selector) {
-			var elements = query(selector+'');
-			console.dir(elements);
-			/*iterator.call([].splice.call(elements, 0, elements.length), function(el,i){
-				console.log(el, i);
-			});*/
+			var elements = query(selector);
+			//console.log(selector,elements);
+			if(elements)
+				iterator.call(elements, function(el,i){
+					if(i < 3)
+					console.dir(el);
+				});
 		});
 	}
 	function parseCss(css, callback) {
