@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>white-space: none;</title>
+	<link href="white-space.css" rel="stylesheet"/>
+	<script type="text/javascript" src="white-space.js"></script>
+</head>
+<body>
+	<label>UL with white space</label>
+	<ul>
+		<li>Lorem</li>
+		<li>Ipsum</li>
+		<li>Lorem</li>
+		<li>Ipsum</li>
+	</ul>
+
+	<label>UL with-out white space</label>
+	<ul>
+		<li>Lorem</li><li>Ipsum</li><li>Lorem</li><li>Ipsum</li>
+	</ul>
+
+	<label>IMG with white space</label>
+	<div class="images">
+        <img src="http://epgstream.net/wp-content/uploads/2011/12/free-logo-256.png" alt="lorem ipsum" />
+        <img src="http://twimg0-a.akamaihd.net/profile_images/3370850932/b1d30caf7b1c192f985b19f6c362349a.png" alt="lorem ipsum" />
+        <img src="http://mosi.ru/sites/default/files/abiturient/123.jpg" alt="lorem ipsum" />
+        <img src="http://thumbs.dreamstime.com/thumblarge_291/12163928287yz7US.jpg" alt="lorem ipsum" />
+    </div>
+
+    <label>IMG with-out white space</label>
+	<div class="images">
+        <img src="http://epgstream.net/wp-content/uploads/2011/12/free-logo-256.png" alt="lorem ipsum"
+        /><img src="http://twimg0-a.akamaihd.net/profile_images/3370850932/b1d30caf7b1c192f985b19f6c362349a.png" alt="lorem ipsum"
+        /><img src="http://mosi.ru/sites/default/files/abiturient/123.jpg" alt="lorem ipsum"
+        /><img src="http://thumbs.dreamstime.com/thumblarge_291/12163928287yz7US.jpg" alt="lorem ipsum" />
+    </div>
+
+
+	<script>
+		/*console.dir(document.styleSheets[0]);
+		[].some.call(document.querySelectorAll('li'), function(li, i) {
+			console.dir(li.style);
+			return true;
+		});*/
+
+	</script>
+</body>
+</html>
