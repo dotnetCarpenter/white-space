@@ -4,10 +4,9 @@
 	<meta charset="utf-8"/>
 	<title>white-space: none;</title>
 	<link href="images-as-list.css" rel="stylesheet"/>
-	<script type="text/javascript" src="white-space.js"></script>
 </head>
 <body>
-	<form action="#">
+	<form action="#" method="POST">
 		<input type="submit" value="Run white-space:none; script"/>
 	</form>
 	<label>IMG with white space</label>
@@ -25,5 +24,16 @@
         /><img src="http://mosi.ru/sites/default/files/abiturient/123.jpg" alt="lorem ipsum"
         /><img src="http://thumbs.dreamstime.com/thumblarge_291/12163928287yz7US.jpg" alt="lorem ipsum" />
     </div>
+    <script>
+    document.forms[0].onsubmit = applyWhiteSpaceFix;
+    function applyWhiteSpaceFix(e) {
+    	e.preventDefault();
+	    var script = document.createElement("script");
+			script.src = "white-space.js";
+			document.getElementsByTagName('head')[0].appendChild(script);
+			script = null;
+			return false;
+	}
+	</script>
 </body>
 </html>
