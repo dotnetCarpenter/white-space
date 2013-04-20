@@ -2,10 +2,10 @@
 	"use strict";
 	// behold we're about to do slow stuff
 	if(!doc.querySelectorAll) {
-		var script = document.createElement("script");
+		var script = doc.createElement("script");
 		script.src = "//zest.js";
 		script.onload = function(){ whiteSpace(doc, win); }
-		document.head.appendChild(script);
+		doc.getElementsByTagName('head')[0](script);
 		script = null;
 		return;
 	}
