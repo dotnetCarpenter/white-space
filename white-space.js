@@ -1,46 +1,33 @@
+/**
+ * Polyfill for the proposed white-space:none; CSS property
+ * http://lists.w3.org/Archives/Public/www-style/2013Apr/subject.html#msg472
+ * This is a proof of concept and is only tested to work in current browsers (as of April 2013)
+ * @version  13.4.1 	year.month.minor-version
+ * Might have an issue with the DOM not being ready before removing white space.
+ */
+
 ;(function whiteSpace(doc, win) {
 	"use strict";
-	// behold we're about to do slow stuff
-	if(!doc.querySelectorAll) doc.write('<script src="https://raw.github.com/chjj/zest/master/lib/zest.js"><\/script>');
-	var query = function() { return (doc.querySelectorAll || zest).apply(doc, arguments) };
-	// and we're fast again
+
 	var cssTokenizer = /([^{]+)\s*\{\s*([^}]+)\s*}/g;
 	var isWhiteSpaceCssBlock = /white-space\s*:\s*none\s*;/;
 	var cssSelector = /(.+)\s*{/;
 	var stylesheets = doc.styleSheets;
 	var stop = null;
-	var xhr = (function() {
-		var ie = ['Msxml2.DOMDocument.6.0', 'Msxml2.DOMDocument.3.0'];
-		var request;
-		if(win.XMLHttpRequest) {
-			request =  win.XMLHttpRequest;
-		} else {
-			iterator.call(ie, function(item) {
-				try {
-					request = win.ActiveXObject(item);
-					return stop;
-				}
-				catch(e) {}
-			});
-		}
-		return function() { return new request; }
-	})();
 	
-	//console.dir(new xhr());
 	iterator.call(stylesheets, getStyleSheet);
-
 
 	function removeWhiteSpace() {
 		//console.dir(arguments);
 		iterator.call(arguments, function(selector) {
-			var elements = query(selector);
+			var elements = doc.querySelectorAll(selector);
 			//console.log(selector,elements);
 			if(elements)
 				iterator.call(elements, function(el,i){
 					var adjacent = el.nextSibling;
-					if(i === 1)
+					/*if(i === 1)
 						console.dir(el);
-					console.dir(adjacent);
+					console.dir(adjacent);*/
 					if( adjacent && adjacent.nodeType === 3 && /\s+/.test(adjacent.nodeValue) ) {
 						adjacent.parentNode.removeChild(adjacent);
 					}			
@@ -48,12 +35,12 @@
 		});
 	}
 	function parseCss(css, callback) {
-		console.log(css);
+		//console.log(css);
 		var tokens = css.match(cssTokenizer);
 		var matches = [];
 		iterator.call(tokens, function(cssblock) {
 			if( isWhiteSpaceCssBlock.test(cssblock) ) {
-				console.log(cssblock);
+				//console.log(cssblock);
 				matches.push(cssblock.match(cssSelector)[1]);
 			}
 		});
@@ -70,7 +57,7 @@
 	}
 	function ajax(url, callback) {
 		var args = [].splice.call(arguments, 2, arguments.length);
-		var get = xhr();
+		var get = new win.XMLHttpRequest();
 		get.open('GET', url);
 		get.onreadystatechange = function() {
 			if ( this.readyState !== 4 || this.status !== 200 && this.status !== 304 && this.status !== 0 ){
