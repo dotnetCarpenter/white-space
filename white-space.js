@@ -11,8 +11,7 @@
 	}
 	// and we're fast again
 	var query = function(selector) {
-		var q = doc.querySelectorAll || zest;
-		return function() { return q(selector); }
+		return (doc.querySelectorAll || zest)(selector);
 	};
 	var cssTokenizer = /([^{]+)\s*\{\s*([^}]+)\s*}/g;
 	var isWhiteSpaceCssBlock = /white-space\s*:\s*none\s*;/;
