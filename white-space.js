@@ -40,7 +40,8 @@
 					var adjacent = el.nextSibling;
 					if(i === 1)
 						console.dir(el);
-					if( adjacent.nodeType === 3 && /\s+/.test(adjacent.nodeValue) ) {
+					console.dir(adjacent);
+					if( adjacent && adjacent.nodeType === 3 && /\s+/.test(adjacent.nodeValue) ) {
 						adjacent.parentNode.removeChild(adjacent);
 					}			
 				});
