@@ -37,8 +37,12 @@
 			//console.log(selector,elements);
 			if(elements)
 				iterator.call(elements, function(el,i){
-					if(i < 3)
-					console.dir(el);
+					var adjacent = el.nextSibling;
+					if(i === 1)
+						console.dir(el);
+					if( adjacent.nodeType === 3 && /\s+/.test(adjacent.nodeValue) ) {
+						adjacent.parentNode.removeChild(adjacent);
+					}			
 				});
 		});
 	}
