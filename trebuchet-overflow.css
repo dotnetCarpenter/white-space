@@ -6,7 +6,6 @@ body {
 .busted { font-family: "Trebuchet MS"; }
 .label {
   display: inline-block;
-  white-space: none;
   width: 30%;
   background-color: #beffff;
   height: 22.4px;
@@ -17,4 +16,6 @@ body {
   width: 67%;
   height: 22.4px;
   background-color: lightgray;
+  white-space: normal;
 }
+.label.fix { white-space: none; }
