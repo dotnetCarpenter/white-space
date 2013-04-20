@@ -1,14 +1,13 @@
 body { background-color: white; }
-ul, .images{
+.images{
 	background-color: grey;
 	margin: 0 auto 1em;
 	width:	80%;
 }
-li, img{
+img{
 	display: inline-block;
+	vertical-align: top;
 	white-space: none;
-	min-height: 2rem;
 	width: 25%;
-
 }
-li:nth-child(odd) { background-color: lightgrey; }
+img:nth-child(odd) { background-color: lightgrey; }

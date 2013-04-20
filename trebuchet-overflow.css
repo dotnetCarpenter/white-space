@@ -1,0 +1,21 @@
+body {
+  width: 480px;
+}
+.row { background-color: yellow; margin: 4px; }
+.normal { font-family: "Arial"; }
+.busted { font-family: "Trebuchet MS"; }
+.label {
+  display: inline-block;
+  width: 30%;
+  background-color: #beffff;
+  height: 22.4px;
+}
+.box {
+  display: inline-block;
+  margin-left: 2%;
+  width: 67%;
+  height: 22.4px;
+  background-color: lightgray;
+  white-space: normal;
+}
+.label.fix { white-space: none; }

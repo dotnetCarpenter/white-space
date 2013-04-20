@@ -5,6 +5,7 @@
 
 This is a proof of concept and is only tested to work in current browsers (as of April 2013).
 
+The implementation works by removing empty nodes in the DOM, that are siblings to a node with ``white-space: none;``. The child nodes doesn't inherite ``white-space: none;``.
 Furthermore, this polyfill only parse external CSS. So it won't even look at CSS in the header or inline.
 Another issue, might be that the DOM is not ready before the script tries to remove empty nodes.
 

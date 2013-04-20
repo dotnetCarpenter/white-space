@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>awkward significance of carriage returns</title>
+  <link href="trebuchet-overflow.css" rel="stylesheet"/>
+  <script type="text/javascript" src="white-space.js"></script>
+</head>
+<body>
+  <p>
+    Test case inspired by <a href="http://lists.w3.org/Archives/Public/www-style/2013Mar/att-0718/trebuchet-overflow.html">http://lists.w3.org/Archives/Public/www-style/2013Mar/att-0718/trebuchet-overflow.html</a>
+  </p>
+  <label>With white-space fix</label>
+  <div class="row normal">
+    <div class="label fix">label one</div>
+    <div class="box">box one</div>
+  </div>
+  <div class="row busted">
+    <div class="label fix">label two</div>
+    <div class="box">box two</div>
+  </div>
+
+  <label>With-out white-space fix</label>
+  <div class="row normal">
+    <div class="label">label one</div>
+    <div class="box">box one</div>
+  </div>
+  <div class="row busted">
+    <div class="label">label two</div>
+    <div class="box">box two</div>
+  </div>
+</body>
+</html>
