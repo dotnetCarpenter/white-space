@@ -1,9 +1,16 @@
 ;(function whiteSpace(doc, win) {
 	"use strict";
 	// behold we're about to do slow stuff
-	if(!doc.querySelectorAll) doc.write('<script src="https://raw.github.com/chjj/zest/master/lib/zest.js"><\/script>');
-	var query = function() { return (doc.querySelectorAll || zest).apply(doc, arguments) };
+	if(!doc.querySelectorAll) {
+		var script = document.createElement("script");
+		script.src = "//raw.github.com/chjj/zest/master/lib/zest.js";
+		script.onload = function(){ whiteSpace(doc, win); }
+		document.head.appendChild(script);
+		script = null;
+		return;
+	}
 	// and we're fast again
+	var query = function() { return (doc.querySelectorAll || zest).apply(doc, arguments) };
 	var cssTokenizer = /([^{]+)\s*\{\s*([^}]+)\s*}/g;
 	var isWhiteSpaceCssBlock = /white-space\s*:\s*none\s*;/;
 	var cssSelector = /(.+)\s*{/;
