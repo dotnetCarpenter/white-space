@@ -6,7 +6,7 @@
 	<link href="unordered-list.css" rel="stylesheet"/>
 </head>
 <body>
-	<form action="#" method="POST">
+	<form>
 		<input type="submit" value="Run white-space:none; script"/>
 	</form>
 	<label>UL with white space</label>
@@ -26,10 +26,10 @@
     function applyWhiteSpaceFix(e) {
     	e.preventDefault();
 	    var script = document.createElement("script");
-			script.src = "white-space.js";
-			document.getElementsByTagName('head')[0].appendChild(script);
-			script = null;
-			return false;
+		script.src = "white-space.js";
+		document.getElementsByTagName('head')[0].appendChild(script);
+		script = null;
+		return false;
 	}
 	</script>
 </body>

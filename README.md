@@ -9,10 +9,11 @@ The implementation works by removing empty nodes in the DOM, that are siblings t
 Furthermore, this polyfill only parse external CSS. So it won't even look at CSS in the header or inline.
 Another issue, might be that the DOM is not ready before the script tries to remove empty nodes.
 
-So far there is three test cases:
+So far there is three test cases and one test case that include all three:
 + [unordered-list.html](http://dotnetcarpenter.github.io/white-space/unordered-list.html)*
 + [images-as-list.html](http://dotnetcarpenter.github.io/white-space/images-as-list.html)*
 + [trebuchet-overflow.html](http://dotnetcarpenter.github.io/white-space/trebuchet-overflow.html)
++ [all.html](http://dotnetcarpenter.github.io/white-space/all.html)
 
 \* Click the "Run white-space:none; script" button at the top
 

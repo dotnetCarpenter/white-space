@@ -1,7 +1,8 @@
-body {
+.row {
+  background-color:yellow;
+  margin: 4px;
   width: 480px;
 }
-.row { background-color: yellow; margin: 4px; }
 .normal { font-family: "Arial"; }
 .busted { font-family: "Trebuchet MS"; }
 .label {
