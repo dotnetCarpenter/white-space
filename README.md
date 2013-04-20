@@ -5,7 +5,8 @@
 
 This is a proof of concept and is only tested to work in current browsers (as of April 2013).
 
-You can test the polyfil here: http://dotnetcarpenter.github.io/white-space/white-space.html
+So far there is two test cases: [white-space.html](http://dotnetcarpenter.github.io/white-space/white-space.html)
+and [trebuchet-overflow.html](http://dotnetcarpenter.github.io/white-space/trebuchet-overflow.html)
 
 ### Discussion
 + http://lists.w3.org/Archives/Public/www-style/2013Mar/subject.html#msg756
