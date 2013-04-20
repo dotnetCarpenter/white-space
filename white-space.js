@@ -10,7 +10,10 @@
 		return;
 	}
 	// and we're fast again
-	var query = function() { return (doc.querySelectorAll || zest).apply(doc, arguments); };
+	var query = function(selector) {
+		var q = doc.querySelectorAll || zest;
+		return function function() { return q(selector); }
+	};
 	var cssTokenizer = /([^{]+)\s*\{\s*([^}]+)\s*}/g;
 	var isWhiteSpaceCssBlock = /white-space\s*:\s*none\s*;/;
 	var cssSelector = /(.+)\s*{/;
