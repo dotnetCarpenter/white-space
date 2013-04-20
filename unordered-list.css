@@ -1,0 +1,14 @@
+body { background-color: white; }
+ul{
+	background-color: grey;
+	margin: 0 auto 1em;
+	width:	80%;
+}
+li{
+	display: inline-block;
+	white-space: none;
+	min-height: 2rem;
+	width: 25%;
+
+}
+li:nth-child(odd) { background-color: lightgrey; }
