@@ -5,7 +5,7 @@
 		var script = doc.createElement("script");
 		script.src = "//zest.js";
 		script.onload = function(){ whiteSpace(doc, win); }
-		doc.getElementsByTagName('head')[0](script);
+		doc.getElementsByTagName('head')[0].appendChild(script);
 		script = null;
 		return;
 	}
