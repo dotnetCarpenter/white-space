@@ -16,7 +16,7 @@ So far there is three test cases:
 \* Click the "Run white-space:none; script" button at the top
 
 ## Tested in
-+ IE10 on Win8
++ IE10, IE9 on Win8
 + FF20, Saf6, Chr26, Op12 on OSX10.7
 
 ### Discussion
