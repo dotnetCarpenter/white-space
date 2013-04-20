@@ -3,7 +3,7 @@
 	// behold we're about to do slow stuff
 	if(!doc.querySelectorAll) {
 		var script = doc.createElement("script");
-		script.src = "//zest.js";
+		script.src = "zest.js";
 		script.onload = function(){ whiteSpace(doc, win); }
 		doc.getElementsByTagName('head')[0].appendChild(script);
 		script = null;
