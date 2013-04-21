@@ -27,3 +27,7 @@ So far there is three test cases and one test case that include all three:
 
 ### History
 Version 0.1.0 - proof of concept
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/dotnetCarpenter/white-space/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
