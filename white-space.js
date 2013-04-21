@@ -12,6 +12,7 @@
 	var cssTokenizer = /([^{]+)\s*\{\s*([^}]+)\s*}/g;
 	var isWhiteSpaceCssBlock = /white-space\s*:\s*none\s*;/;
 	var cssSelector = /(.+)\s*{/;
+	var empty = /\s+/;
 	var stylesheets = doc.styleSheets;
 	var stop = null;
 	
@@ -28,7 +29,7 @@
 					/*if(i === 1)
 						console.dir(el);
 					console.dir(adjacent);*/
-					if( adjacent && adjacent.nodeType === 3 && /\s+/.test(adjacent.nodeValue) ) {
+					if( adjacent && adjacent.nodeType === 3 && empty.test(adjacent.nodeValue) ) {
 						adjacent.parentNode.removeChild(adjacent);
 					}			
 				});
