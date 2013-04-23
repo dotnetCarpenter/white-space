@@ -2,7 +2,7 @@
  * Polyfill for the proposed white-space:none; CSS property
  * http://lists.w3.org/Archives/Public/www-style/2013Apr/subject.html#msg472
  * This is a proof of concept and is only tested to work in current browsers (as of April 2013)
- * @version  13.4.1 	year.month.minor-version
+ * @version  13.4.2 	year.month.minor-version
  * Might have an issue with the DOM not being ready before removing white space.
  */
 
@@ -20,11 +20,10 @@
 			var args = getArguments.call(arguments);
 			var currentFn = this.shift();
 			if(!currentFn) return;	// done
-			currentFn.apply(currentFn, [promise].concat(args));
+			currentFn.apply(this, [promise].concat(args));
 		}
-		var args = getArguments.call(arguments);
-		var promise = { resolve: next.bind(args), reject: function(){} };
-		return next.bind(args);
+		var promise = next.bind(getArguments.call(arguments));
+		return promise
 	}
 
 	iterator.call(stylesheets, function(sheet) {
@@ -50,11 +49,12 @@
 			if ( this.readyState !== 4 || this.status !== 200 && this.status !== 304){
 				return;
 			}
-			this.responseText ? promise.resolve(this.responseText) : promise.reject();
+			if(this.responseText)
+				promise(this.responseText);
 		}
 		try {
 			get.send();
-		} catch (e) { promise.reject(); }
+		} catch (e) {}
 	}
 	function parseCss(promise, css) {
 		//console.log(css);
@@ -66,9 +66,9 @@
 				matches.push(cssblock.match(cssSelector)[1]);
 			}
 		});
-		promise.resolve(matches);
+		promise(matches);
 	}
-	function removeWhiteSpace(promise) {
+	function removeWhiteSpace() {
 		//console.dir(arguments);
 		iterator.call(getArguments.call(arguments).splice(1), function(selector) {
 			var elements = doc.querySelectorAll(selector);
