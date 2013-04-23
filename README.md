@@ -9,6 +9,8 @@ The implementation works by removing empty nodes in the DOM, that are siblings t
 Furthermore, this polyfill only parse external CSS. So it won't even look at CSS in the header or inline.
 Another issue, might be that the DOM is not ready before the script tries to remove empty nodes.
 
+You can find a list of sites and people discussing issues with not having `white-space: none;` on the [wiki](https://github.com/dotnetCarpenter/white-space/wiki).
+
 So far there is three test cases and one test case that include all three:
 + [unordered-list.html](http://dotnetcarpenter.github.io/white-space/unordered-list.html)*
 + [images-as-list.html](http://dotnetcarpenter.github.io/white-space/images-as-list.html)*
@@ -21,9 +23,9 @@ So far there is three test cases and one test case that include all three:
 + IE10, IE9 on Win8
 + FF20, Saf6, Chr26, Op12 on OSX10.7
 
-### Discussion
+###
 + http://lists.w3.org/Archives/Public/www-style/2013Mar/subject.html#msg756
-+ http://lists.w3.org/Archives/Public/www-style/2013Apr/subject.html#msg472
++ http://lists.w3.org/Archives/Public/www-style/2013Apr/subject.html#msg497
 
 ### Changelog
 + 0.1.1 - switch to monad implementation
