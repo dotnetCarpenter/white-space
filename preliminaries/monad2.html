@@ -2,19 +2,31 @@
 <meta charset="utf-8">
 <title>monad</title>
 <script>
-var optimist = function() {
+function Person(name) {
+	this.name = name;
+}
+Person.prototype.says = function(callback, to) {
+	callback(this.name + " says hi to " + to);
+}
+var hansel = new Person("Hänsel");
+optimist(
+    hansel.says.bind(hansel),
+    function(promise, greet) {
+        console.log(greet);
+    }
+)("Gretel");
+
+function optimist() {
 	function next(){
 		var args = getArguments.call(arguments);
 		var currentFn = this.shift();
 		if(!currentFn) return;	// done
-		currentFn.apply(currentFn, [promise].concat(args));
-	}
-	
-	var args = getArguments.call(arguments);
-	var promise = { resolve: next.bind(args), reject: function(){ console.log("lort") } };
-	return next.bind(args);
+		currentFn.apply(this, [promise].concat(args));
+	}	
+	var promise = next.bind(getArguments.call(arguments));
+	return promise;
 }
-
+//optimist(hans.says.bind(hans))("Rasmus");
 optimist(q1, q2, q3, q4, q5)("seed");
 
 function iterator(fn) {
@@ -27,27 +39,27 @@ function getArguments() {
 	}
 function q1(promise, text) {
 	console.log("q1", text);
-    promise.resolve("Hello World");
+    promise("Hello World");
 }
 function q2(promise, text) {
     console.log("q2", text);	// Hello World
-    promise.resolve("from q2");
+    promise("from q2");
 }
 function q3(promise) {
     console.log("q3");
     setTimeout(ajax, 1000);
     function ajax() {
-    	promise.resolve({ ok: true, status: 200 })
+    	promise({ ok: true, status: 200 })
     }
-    //promise.reject("from q3");
 }
 function q4(promise, data) {
     console.log("q4", data);
-    promise.resolve();
+    promise();
 }
 function q5(promise) {
     console.log("q5");
 }
+
 </script>
 </head>
 <body>
