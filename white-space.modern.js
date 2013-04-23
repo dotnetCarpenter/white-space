@@ -22,9 +22,8 @@ var startTime = performance.now();
 			if(!currentFn) return;	// done
 			currentFn.apply(currentFn, [promise].concat(args));
 		}
-		var args = getArguments.call(arguments);
-		var promise = { resolve: next.bind(args), reject: function(){} };
-		return next.bind(args);
+		var promise = next.bind(getArguments.call(arguments));
+		return promise;
 	}
 
 	iterator.call(stylesheets, function(sheet) {
@@ -43,9 +42,6 @@ var startTime = performance.now();
 			if( fn.call(this, this[i], i) === stop ) return;
 		}
 	}
-	function getStyleSheet(promise, sheet) {
-		promise.resolve(sheet.href);
-	}
 	function ajax(promise, url) {
 		var get = new win.XMLHttpRequest();
 		get.open('GET', url);
@@ -53,11 +49,12 @@ var startTime = performance.now();
 			if ( this.readyState !== 4 || this.status !== 200 && this.status !== 304){
 				return;
 			}
-			this.responseText ? promise.resolve(this.responseText) : promise.reject();
+			if(this.responseText)
+				promise(this.responseText);
 		}
 		try {
 			get.send();
-		} catch (e) { promise.reject(); }
+		} catch (e) {}
 	}
 	function parseCss(promise, css) {
 		//console.log(css);
@@ -69,9 +66,9 @@ var startTime = performance.now();
 				matches.push(cssblock.match(cssSelector)[1]);
 			}
 		});
-		promise.resolve(matches);
+		promise(matches);
 	}
-	function removeWhiteSpace(promise) {
+	function removeWhiteSpace() {
 		//console.dir(arguments);
 		iterator.call(getArguments.call(arguments).splice(1), function(selector) {
 			var elements = doc.querySelectorAll(selector);
