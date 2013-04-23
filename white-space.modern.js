@@ -43,9 +43,6 @@
 			if( fn.call(this, this[i], i) === stop ) return;
 		}
 	}
-	function getStyleSheet(promise, sheet) {
-		promise.resolve(sheet.href);
-	}
 	function ajax(promise, url) {
 		var get = new win.XMLHttpRequest();
 		get.open('GET', url);
