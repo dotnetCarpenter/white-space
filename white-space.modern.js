@@ -2,7 +2,7 @@
  * Polyfill for the proposed white-space:none; CSS property
  * http://lists.w3.org/Archives/Public/www-style/2013Apr/subject.html#msg472
  * This is a proof of concept and is only tested to work in current browsers (as of April 2013)
- * @version  13.4.1 	year.month.minor-version
+ * @version  13.4.2 	year.month.minor-version
  * Might have an issue with the DOM not being ready before removing white space.
  */
 ;(function whiteSpace(doc, win) {
@@ -19,10 +19,10 @@
 			var args = getArguments.call(arguments);
 			var currentFn = this.shift();
 			if(!currentFn) return;	// done
-			currentFn.apply(currentFn, [promise].concat(args));
+			currentFn.apply(this, [continuation].concat(args));
 		}
-		var promise = next.bind(getArguments.call(arguments));
-		return promise;
+		var continuation = next.bind(getArguments.call(arguments));
+		return continuation;
 	}
 
 	iterator.call(stylesheets, function(sheet) {
@@ -41,7 +41,7 @@
 			if( fn.call(this, this[i], i) === stop ) return;
 		}
 	}
-	function ajax(promise, url) {
+	function ajax(cb, url) {
 		var get = new win.XMLHttpRequest();
 		get.open('GET', url);
 		get.onreadystatechange = function() {
@@ -49,13 +49,13 @@
 				return;
 			}
 			if(this.responseText)
-				promise(this.responseText);
+				cb(this.responseText);
 		}
 		try {
 			get.send();
 		} catch (e) {}
 	}
-	function parseCss(promise, css) {
+	function parseCss(cb, css) {
 		//console.log(css);
 		var tokens = css.match(cssTokenizer);
 		var matches = [];
@@ -66,9 +66,9 @@
 			}
 		});
 		if(matches.length > 0)
-			promise(matches);
+			cb(matches);
 	}
-	function removeWhiteSpace() {
+	function removeWhiteSpace(cb) {
 		//console.dir(arguments);
 		iterator.call(getArguments.call(arguments).splice(1), function(selector) {
 			//console.log(selector);
@@ -81,5 +81,6 @@
 					}			
 				});
 		});
+		cb();
 	}
 })(document, window);
