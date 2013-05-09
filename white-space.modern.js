@@ -72,7 +72,8 @@
 				matches.push(cssblock.match(cssSelector)[1]);
 			}
 		});
-		cb(matches);
+		if(matches.length)
+			cb(matches);
 	}
 	function removeWhiteSpace(cb) {
 		//console.dir(arguments);
