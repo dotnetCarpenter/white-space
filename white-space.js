@@ -5,7 +5,6 @@
  * @version  13.4.2 	year.month.minor-version
  * Might have an issue with the DOM not being ready before removing white space.
  */
-var startTime = performance.now();
 ;(function whiteSpace(doc, win) {
 	"use strict";
 
@@ -34,7 +33,6 @@ var startTime = performance.now();
 					}			
 				});
 		});
-		console.log("Time:", performance.now()-startTime);
 	}
 	function parseCss(css, callback) {
 		//console.log(css);
