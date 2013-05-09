@@ -2,7 +2,7 @@
  * Polyfill for the proposed white-space:none; CSS property
  * http://lists.w3.org/Archives/Public/www-style/2013Apr/subject.html#msg472
  * This is a proof of concept and is only tested to work in current browsers (as of April 2013)
- * @version  13.5.1 	year.month.minor-version
+ * @version  13.5.2 	year.month.minor-version
  * Might have an issue with the DOM not being ready before removing white space.
  */
 ;(function whiteSpace(doc, win) {
@@ -36,8 +36,15 @@
 	function getArguments() {
 		return Array.prototype.splice.call(this, 0, this.length);
 	}
+	/**
+	 * Iterate over anything that has a length.
+	 * If a value we are iterating over is falsy but not 0 or an empty array, the iteration skip that value.
+	 * @param  {Function} fn Callback function to call on each assigned value in the list.
+	 * @return {Void}      Nothing
+	 */
 	function iterator(fn) {
 		for (var i = 0, len = this.length; i < len; ++i) {
+			if(!this[i] && this[i] !== 0 || (this[i] instanceof Array && !this[i].length) ) continue;
 			if( fn.call(this, this[i], i) === stop ) return;
 		}
 	}
@@ -65,15 +72,7 @@
 				matches.push(cssblock.match(cssSelector)[1]);
 			}
 		});
-		promise(matches);
-	}
-	function removeWhiteSpace() {
-		//console.dir(arguments);
-		iterator.call(getArguments.call(arguments).splice(1), function(selector) {
-		var elements = doc.querySelectorAll(selector);
-		if(elements)
-			iterator.call(elements, function(el,i){
-		if(matches.length > 0)
+		if(matches.length)
 			cb(matches);
 	}
 	function removeWhiteSpace(cb) {
