@@ -5,7 +5,6 @@
  * @version  13.4.1 	year.month.minor-version
  * Might have an issue with the DOM not being ready before removing white space.
  */
-var startTime = performance.now();
 ;(function whiteSpace(doc, win) {
 	"use strict";
 
@@ -66,13 +65,15 @@ var startTime = performance.now();
 				matches.push(cssblock.match(cssSelector)[1]);
 			}
 		});
-		promise(matches);
+		if(matches.length > 0)
+			promise(matches);
 	}
 	function removeWhiteSpace() {
 		//console.dir(arguments);
 		iterator.call(getArguments.call(arguments).splice(1), function(selector) {
+			//console.log(selector);
 			var elements = doc.querySelectorAll(selector);
-			if(elements)
+			if(elements.length > 0)
 				iterator.call(elements, function(el){
 					var adjacent = el.nextSibling;
 					if( adjacent && adjacent.nodeType === 3 && empty.test(adjacent.nodeValue) ) {
@@ -80,6 +81,5 @@ var startTime = performance.now();
 					}			
 				});
 		});
-		console.log("Time:", performance.now()-startTime);
 	}
 })(document, window);
