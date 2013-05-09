@@ -28,6 +28,10 @@ So far there is three test cases and one test case that include all three:
 + http://lists.w3.org/Archives/Public/www-style/2013Apr/subject.html#msg497
 
 ### Changelog
+<<<<<<< HEAD
+=======
++ 0.1.2 - fix bug when no white-space:none was found in CSS
+>>>>>>> b7a84812e7b73b374126cda973de61f1d54fcabf
 + 0.1.1 - switch to monad implementation
 + 0.1.0 - proof of concept
 

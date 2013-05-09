@@ -1,0 +1,68 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>monad</title>
+<script>
+function Person(name) {
+	this.name = name;
+}
+Person.prototype.says = function(callback, to) {
+	callback(this.name + " says hi to " + to);
+}
+var hansel = new Person("Hänsel");
+optimist(
+    hansel.says.bind(hansel),
+    function(promise, greet) {
+        console.log(greet);
+    }
+)("Gretel");
+
+function optimist() {
+	function next(){
+		var args = getArguments.call(arguments);
+		var currentFn = this.shift();
+		if(!currentFn) return;	// done
+		currentFn.apply(this, [promise].concat(args));
+	}	
+	var promise = next.bind(getArguments.call(arguments));
+	return promise;
+}
+//optimist(hans.says.bind(hans))("Rasmus");
+optimist(q1, q2, q3, q4, q5)("seed");
+
+function iterator(fn) {
+	for (var i = 0, len = this.length; i < len; ++i) {
+		if( fn.call(this, this[i], i) === stop ) return;
+	}
+}
+function getArguments() {
+		return Array.prototype.splice.call(this, 0, this.length);
+	}
+function q1(promise, text) {
+	console.log("q1", text);
+    promise("Hello World");
+}
+function q2(promise, text) {
+    console.log("q2", text);	// Hello World
+    promise("from q2");
+}
+function q3(promise) {
+    console.log("q3");
+    setTimeout(ajax, 1000);
+    function ajax() {
+    	promise({ ok: true, status: 200 })
+    }
+}
+function q4(promise, data) {
+    console.log("q4", data);
+    promise();
+}
+function q5(promise) {
+    console.log("q5");
+}
+
+</script>
+</head>
+<body>
+	
+</body>
+</html>
