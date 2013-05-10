@@ -91,7 +91,7 @@
 				iterator.call(elements, function(el) {
 					var content = el.outerHTML,
 						adjacent = el.nextSibling,
-						outerEmpty = /^\s<|>\s$/g;
+						outerEmpty = /^\s+|\s+$/g;
 					if(outerEmpty.test(content)) {
 						// trim the content - this works for IE8
 						el.outerHTML = content.replace(outerEmpty, '');						
