@@ -12,10 +12,10 @@ Another issue, might be that the DOM is not ready before the script tries to rem
 You can find a list of sites and people discussing issues with not having `white-space: none;` on the [wiki](https://github.com/dotnetCarpenter/white-space/wiki).
 
 So far there is three test cases and one test case that include all three:
-+ [unordered-list.html](http://dotnetcarpenter.github.io/white-space/unordered-list.html)*
-+ [images-as-list.html](http://dotnetcarpenter.github.io/white-space/images-as-list.html)*
-+ [trebuchet-overflow.html](http://dotnetcarpenter.github.io/white-space/trebuchet-overflow.html)
-+ [all.html](http://dotnetcarpenter.github.io/white-space/all.html)
++ [unordered-list.html](http://dotnetcarpenter.github.io/test-cases/white-space/unordered-list.html)*
++ [images-as-list.html](http://dotnetcarpenter.github.io/test-cases/white-space/images-as-list.html)*
++ [trebuchet-overflow.html](http://dotnetcarpenter.github.io/test-cases/white-space/trebuchet-overflow.html)
++ [all.html](http://dotnetcarpenter.github.io/white-space/test-cases/all.html)
 
 \* Click the "Run white-space:none; script" button at the top
 
