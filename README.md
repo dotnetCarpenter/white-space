@@ -20,8 +20,10 @@ So far there is three test cases and one test case that include all three:
 \* Click the "Run white-space:none; script" button at the top
 
 ## Tested in
-+ IE10, IE9 on Win8
-+ FF20, Saf6, Chr26, Op12 on OSX10.7
++ IE10, IE9, IE8 on Win8
++ FF20, Saf6, Chr26, Op12 on OSX10.7 (Lion)
+
+**NOTE:** IE7 support requeries that `querySelectorAll` is replaced with something similar.
 
 ###
 + http://lists.w3.org/Archives/Public/www-style/2013Mar/subject.html#msg756
@@ -29,6 +31,7 @@ So far there is three test cases and one test case that include all three:
 
 ### Changelog
 =======
++ 0.1.3 - added support for IE8
 + 0.1.2 - fix bug when no white-space:none was found in CSS
 + 0.1.1 - switch to monad implementation
 + 0.1.0 - proof of concept
