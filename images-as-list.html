@@ -2,11 +2,11 @@
 <html>
 <head>
 	<meta charset="utf-8"/>
-	<title>white-space: none; - version 1.0</title>
+	<title>white-space: none; - version 1.1</title>
 	<link href="images-as-list.css" rel="stylesheet"/>
 </head>
 <body>
-	<form>
+	<form onsubmit="return applyWhiteSpaceFix">
 		<input type="submit" value="Run white-space:none; script"/>
 	</form>
 	<label>IMG with white space</label>
@@ -25,9 +25,8 @@
         /><img src="http://spaceholder.co/p/256" alt="lorem ipsum" />
     </div>
     <script>
-    document.forms[0].onsubmit = applyWhiteSpaceFix;
     function applyWhiteSpaceFix(e) {
-    	e.preventDefault();
+    	e && e.preventDefault();
 	    var script = document.createElement("script");
 		script.src = "white-space.modern.js";
 		document.getElementsByTagName('head')[0].appendChild(script);
