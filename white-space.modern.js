@@ -2,7 +2,7 @@
  * Polyfill for the proposed white-space:none; CSS property
  * http://lists.w3.org/Archives/Public/www-style/2013Apr/subject.html#msg472
  * This is a proof of concept and is only tested to work in current browsers (as of April 2013)
- * @version  13.5.2 	year.month.minor-version
+ * @version  13.5.3 	year.month.minor-version
  * Might have an issue with the DOM not being ready before removing white space.
  */
 ;(function whiteSpace(doc, win) {
@@ -14,14 +14,14 @@
 	var empty = /\s+/;
 	var stylesheets = doc.styleSheets;	// is a StyleSheetList which can not be converted to an array (in FF)
 	var stop = null;
-	var optimist = function() {	// optimistic monad - runs all supplied functions unless there is an rejection, then it stops.
+	var optimist = function() {	// continuation passing style - runs all supplied functions unless there is an rejection, then it stops.
 		function next(){
 			var args = getArguments.call(arguments);
 			var currentFn = this.shift();
 			if(!currentFn) return;	// done
 			currentFn.apply(this, [continuation].concat(args));
 		}
-		var continuation = next.bind(getArguments.call(arguments));
+		var continuation = bind(next, getArguments.call(arguments));
 		return continuation;
 	}
 
@@ -33,6 +33,13 @@
 		)(sheet.href);
 	});
 	
+	function bind(fn, obj){
+		if(fn.bind) return fn.bind(obj);
+		else return function() {
+			return fn.apply(obj, arguments);
+		}
+	}
+
 	function getArguments() {
 		return Array.prototype.splice.call(this, 0, this.length);
 	}
