@@ -28,7 +28,7 @@
     function applyWhiteSpaceFix(e) {
       e && e.preventDefault();
       var script = document.createElement("script");
-      script.src = "white-space.modern.js";
+      script.src = "../white-space.js";
       document.getElementsByTagName('head')[0].appendChild(script);
       script = null;
       return false;
