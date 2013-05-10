@@ -89,14 +89,17 @@
 			var elements = doc.querySelectorAll(selector);
 			if(elements.length > 0)
 				iterator.call(elements, function(el) {
-					var content = el.outerHTML;
-					el.outerHTML = content.replace(empty, '');
-					el = null;
-					/* old solution
-					var adjacent = el.nextSibling;
+					var content = el.outerHTML,
+						adjacent = el.nextSibling;
+					if(empty.test(content)) {
+						// trim the content - this works for IE8
+						el.outerHTML = content.replace(empty, '');						
+					}
+					// remove empty text node next to out element
+					// works in all other browsers than IE8
 					if( adjacent && adjacent.nodeType === 3 && empty.test(adjacent.nodeValue) ) {
 						adjacent.parentNode.removeChild(adjacent);
-					}*/
+					}
 				});
 		});
 		cb();
