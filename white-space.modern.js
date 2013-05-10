@@ -19,7 +19,7 @@
 			var args = getArguments.call(arguments);
 			var currentFn = this.shift();
 			if(!currentFn) return;	// done
-			currentFn.call(this, continuation, args);
+			currentFn.call(null, continuation, args);
 		}
 		var continuation = bind(next, getArguments.call(arguments));
 		return continuation;
@@ -91,7 +91,7 @@
 				iterator.call(elements, function(el) {
 					var content = el.outerHTML,
 						adjacent = el.nextSibling;
-					if(empty.test(content)) {
+					if(/\s+/g.test(content)) {
 						// trim the content - this works for IE8
 						el.outerHTML = content.replace(empty, '');						
 					}
