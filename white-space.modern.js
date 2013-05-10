@@ -90,10 +90,11 @@
 			if(elements.length > 0)
 				iterator.call(elements, function(el) {
 					var content = el.outerHTML,
-						adjacent = el.nextSibling;
-					if(/\s+/g.test(content)) {
+						adjacent = el.nextSibling,
+						outerEmpty = /^\s<|>\s$/g;
+					if(outerEmpty.test(content)) {
 						// trim the content - this works for IE8
-						el.outerHTML = content.replace(empty, '');						
+						el.outerHTML = content.replace(outerEmpty, '');						
 					}
 					// remove empty text node next to out element
 					// works in all other browsers than IE8
