@@ -57,7 +57,6 @@
 	}
 	function ajax(cb, url) {
 		var get = new win.XMLHttpRequest();
-		get.open('GET', url[0]);	// apparently IE8 accepts an array here but we better not expect that for the other browsers
 		get.onreadystatechange = function() {
 			if ( this.readyState !== 4 || this.status !== 200 && this.status !== 304){
 				return;
@@ -66,6 +65,7 @@
 				cb(this.responseText);
 		}
 		try {
+			get.open('GET', url[0]);	// apparently IE8 accepts an array here but we better not expect that for the other browsers
 			get.send();
 		} catch (e) {}
 	}
