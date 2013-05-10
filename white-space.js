@@ -2,7 +2,7 @@
  * Polyfill for the proposed white-space:none; CSS property
  * http://lists.w3.org/Archives/Public/www-style/2013Apr/subject.html#msg472
  * This is a proof of concept and is only tested to work in current browsers (as of April 2013)
- * @version  13.4.2 	year.month.minor-version
+ * @version  13.5.3 	year.month.minor-version
  * Might have an issue with the DOM not being ready before removing white space.
  */
 ;(function whiteSpace(doc, win) {
@@ -12,31 +12,66 @@
 	var isWhiteSpaceCssBlock = /white-space\s*:\s*none\s*;/;
 	var cssSelector = /(.+)\s*{/;
 	var empty = /\s+/;
-	var stylesheets = doc.styleSheets;
+	var stylesheets = doc.styleSheets;	// is a StyleSheetList which can not be converted to an array (in FF)
 	var stop = null;
-	
-	iterator.call(stylesheets, getStyleSheet);
-
-	function removeWhiteSpace() {
-		//console.dir(arguments);
-		iterator.call(arguments, function(selector) {
-			var elements = doc.querySelectorAll(selector);
-			//console.log(selector,elements);
-			if(elements)
-				iterator.call(elements, function(el,i){
-					var adjacent = el.nextSibling;
-					/*if(i === 1)
-						console.dir(el);
-					console.dir(adjacent);*/
-					if( adjacent && adjacent.nodeType === 3 && empty.test(adjacent.nodeValue) ) {
-						adjacent.parentNode.removeChild(adjacent);
-					}			
-				});
-		});
+	var optimist = function() {	// continuation passing style - runs all supplied functions unless there is an rejection, then it stops.
+		function next(){
+			var args = getArguments.call(arguments);
+			var currentFn = this.shift();
+			if(!currentFn) return;	// done
+			currentFn.call(null, continuation, args);
+		}
+		var continuation = bind(next, getArguments.call(arguments));
+		return continuation;
 	}
-	function parseCss(css, callback) {
+
+	iterator.call(stylesheets, function(sheet) {
+		optimist(
+			ajax,
+			parseCss,
+			removeWhiteSpace
+		)(sheet.href);
+	});
+	
+	function bind(fn, obj){
+		if(fn.bind) return fn.bind(obj);
+		else return function() {
+			return fn.apply(obj, arguments);
+		}
+	}
+
+	function getArguments() {
+		return Array.prototype.splice.call(this, 0, this.length);
+	}
+	/**
+	 * Iterate over anything that has a length.
+	 * If a value we are iterating over is falsy but not 0 or an empty array, the iteration skip that value.
+	 * @param  {Function} fn Callback function to call on each assigned value in the list.
+	 * @return {Void}      Nothing
+	 */
+	function iterator(fn) {
+		for (var i = 0, len = this.length; i < len; ++i) {
+			//SLOWif(!this[i] && this[i] !== 0 || (this[i] instanceof Array && !this[i].length) ) continue;
+			if( fn.call(this, this[i], i) === stop ) return;
+		}
+	}
+	function ajax(cb, url) {
+		var get = new win.XMLHttpRequest();
+		get.open('GET', url[0]);	// apparently IE8 accepts an array here but we better not expect that for the other browsers
+		get.onreadystatechange = function() {
+			if ( this.readyState !== 4 || this.status !== 200 && this.status !== 304){
+				return;
+			}
+			if(this.responseText)
+				cb(this.responseText);
+		}
+		try {
+			get.send();
+		} catch (e) {}
+	}
+	function parseCss(cb, css) {
 		//console.log(css);
-		var tokens = css.match(cssTokenizer);
+		var tokens = css[0].match(cssTokenizer);
 		var matches = [];
 		iterator.call(tokens, function(cssblock) {
 			if( isWhiteSpaceCssBlock.test(cssblock) ) {
@@ -44,27 +79,37 @@
 				matches.push(cssblock.match(cssSelector)[1]);
 			}
 		});
-		callback.apply(callback, matches);
+		if(matches.length)
+			cb(matches);
 	}
-	function getStyleSheet(sheet) {
-		//console.dir(sheet);
-		ajax(sheet.href, parseCss, removeWhiteSpace);
-	}
-	function iterator(fn) {
-		for (var i = 0, len = this.length; i < len; ++i) {
-			if( fn.call(this, this[i], i) === stop ) return;
-		}
-	}
-	function ajax(url, callback) {
-		var args = [].splice.call(arguments, 2, arguments.length);
-		var get = new win.XMLHttpRequest();
-		get.open('GET', url);
-		get.onreadystatechange = function() {
-			if ( this.readyState !== 4 || this.status !== 200 && this.status !== 304 && this.status !== 0 ){
-				return;
+	function removeWhiteSpace(cb, selectors) {
+		console.dir(arguments);
+
+		iterator.call(selectors, function(selector) {
+			console.log(selector);
+
+			var elements = doc.querySelectorAll(selector);
+			if(elements.length > 0) {
+				console.log(elements);
+				iterator.call(elements, function(el) {
+					var content = el.outerHTML,
+					adjacent = el.nextSibling,
+					outerEmpty = /^\s+|\s+$/g;
+					if( outerEmpty.test(content) ) {
+						// trim the content - this works for IE8
+						el.outerHTML = content.replace(outerEmpty, '');
+					}
+					// remove empty text node next to out element
+					// works in all other browsers than IE8
+					if( adjacent
+						&& adjacent.nodeType === 3
+						&& empty.test(adjacent.nodeValue)
+					) {
+						adjacent.parentNode.removeChild(adjacent);
+					}
+				});
 			}
-			callback.apply(callback, [this.responseText].concat(args));
-		}
-		get.send();
-	}
+		});
+		cb();
+}
 })(document, window);
