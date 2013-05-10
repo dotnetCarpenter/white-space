@@ -19,7 +19,7 @@
 			var args = getArguments.call(arguments);
 			var currentFn = this.shift();
 			if(!currentFn) return;	// done
-			currentFn.apply(this, [continuation].concat(args));
+			currentFn.call(this, continuation, args);
 		}
 		var continuation = bind(next, getArguments.call(arguments));
 		return continuation;
@@ -82,10 +82,10 @@
 		if(matches.length)
 			cb(matches);
 	}
-	function removeWhiteSpace(cb) {
-		//console.dir(arguments);
-		var args = getArguments.call(arguments);
-		var selectors = args.splice(1, args.length-1);
+	function removeWhiteSpace(cb, selectors) {
+		console.dir(arguments);
+		//var args = getArguments.call(arguments);
+		//var selectors = args.splice(1, args.length-1);
 		iterator.call(selectors, function(selector) {
 			//console.log(selector);
 			var elements = doc.querySelectorAll(selector);
