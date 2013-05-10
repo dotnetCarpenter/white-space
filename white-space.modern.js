@@ -11,7 +11,7 @@
 	var cssTokenizer = /([^{]+)\s*\{\s*([^}]+)\s*}/g;
 	var isWhiteSpaceCssBlock = /white-space\s*:\s*none\s*;/;
 	var cssSelector = /(.+)\s*{/;
-	var empty = /\s+/g;
+	var empty = /\s+/;
 	var stylesheets = doc.styleSheets;	// is a StyleSheetList which can not be converted to an array (in FF)
 	var stop = null;
 	var optimist = function() {	// continuation passing style - runs all supplied functions unless there is an rejection, then it stops.
@@ -51,7 +51,7 @@
 	 */
 	function iterator(fn) {
 		for (var i = 0, len = this.length; i < len; ++i) {
-			if(!this[i] && this[i] !== 0 || (this[i] instanceof Array && !this[i].length) ) continue;
+			//SLOWif(!this[i] && this[i] !== 0 || (this[i] instanceof Array && !this[i].length) ) continue;
 			if( fn.call(this, this[i], i) === stop ) return;
 		}
 	}
@@ -84,25 +84,32 @@
 	}
 	function removeWhiteSpace(cb, selectors) {
 		console.dir(arguments);
+
 		iterator.call(selectors, function(selector) {
 			console.log(selector);
+
 			var elements = doc.querySelectorAll(selector);
-			if(elements.length > 0)
+			if(elements.length > 0) {
+				console.log(elements);
 				iterator.call(elements, function(el) {
 					var content = el.outerHTML,
-						adjacent = el.nextSibling,
-						outerEmpty = /^\s+|\s+$/g;
-					if(outerEmpty.test(content)) {
+					adjacent = el.nextSibling,
+					outerEmpty = /^\s+|\s+$/g;
+					if( outerEmpty.test(content) ) {
 						// trim the content - this works for IE8
-						el.outerHTML = content.replace(outerEmpty, '');						
+						el.outerHTML = content.replace(outerEmpty, '');
 					}
 					// remove empty text node next to out element
 					// works in all other browsers than IE8
-					if( adjacent && adjacent.nodeType === 3 && empty.test(adjacent.nodeValue) ) {
+					if( adjacent
+						&& adjacent.nodeType === 3
+						&& empty.test(adjacent.nodeValue)
+					) {
 						adjacent.parentNode.removeChild(adjacent);
 					}
 				});
+			}
 		});
 		cb();
-	}
+}
 })(document, window);
