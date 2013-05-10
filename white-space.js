@@ -83,14 +83,14 @@
 			cb(matches);
 	}
 	function removeWhiteSpace(cb, selectors) {
-		console.dir(arguments);
+		//console.dir(arguments);
 
 		iterator.call(selectors, function(selector) {
-			console.log(selector);
+			//console.log(selector);
 
 			var elements = doc.querySelectorAll(selector);
 			if(elements.length > 0) {
-				console.log(elements);
+				//console.log(elements);
 				iterator.call(elements, function(el) {
 					var content = el.outerHTML,
 					adjacent = el.nextSibling,
