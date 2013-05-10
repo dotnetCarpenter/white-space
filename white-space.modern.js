@@ -85,7 +85,8 @@
 	function removeWhiteSpace(cb) {
 		//console.dir(arguments);
 		var args = getArguments.call(arguments);
-		iterator.call(args.splice(1, args.length-1), function(selector) {
+		var selectors = args.splice(1, args.length-1);
+		iterator.call(selectors, function(selector) {
 			//console.log(selector);
 			var elements = doc.querySelectorAll(selector);
 			if(elements.length > 0)
