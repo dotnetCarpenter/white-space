@@ -11,7 +11,7 @@
 	var cssTokenizer = /([^{]+)\s*\{\s*([^}]+)\s*}/g;
 	var isWhiteSpaceCssBlock = /white-space\s*:\s*none\s*;/;
 	var cssSelector = /(.+)\s*{/;
-	var empty = /\s+/;
+	var empty = /\s+/g;
 	var stylesheets = doc.styleSheets;	// is a StyleSheetList which can not be converted to an array (in FF)
 	var stop = null;
 	var optimist = function() {	// continuation passing style - runs all supplied functions unless there is an rejection, then it stops.
@@ -90,7 +90,7 @@
 			if(elements.length > 0)
 				iterator.call(elements, function(el) {
 					var content = el.outerHTML;
-					el.outHTML = content.replace(empty, '');
+					el.outerHTML = content.replace(empty, '');
 					el = null;
 					/* old solution
 					var adjacent = el.nextSibling;
