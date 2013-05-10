@@ -84,17 +84,19 @@
 	}
 	function removeWhiteSpace(cb, selectors) {
 		console.dir(arguments);
-		//var args = getArguments.call(arguments);
-		//var selectors = args.splice(1, args.length-1);
 		iterator.call(selectors, function(selector) {
-			//console.log(selector);
+			console.log(selector);
 			var elements = doc.querySelectorAll(selector);
 			if(elements.length > 0)
 				iterator.call(elements, function(el) {
+					var content = el.outerHTML;
+					el.outHTML = content.replace(empty, '');
+					el = null;
+					/* old solution
 					var adjacent = el.nextSibling;
 					if( adjacent && adjacent.nodeType === 3 && empty.test(adjacent.nodeValue) ) {
 						adjacent.parentNode.removeChild(adjacent);
-					}			
+					}*/
 				});
 		});
 		cb();
