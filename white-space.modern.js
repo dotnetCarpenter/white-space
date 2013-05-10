@@ -57,7 +57,7 @@
 	}
 	function ajax(cb, url) {
 		var get = new win.XMLHttpRequest();
-		get.open('GET', url);
+		get.open('GET', url[0]);	// apparently IE8 accepts an array here but we better not expect that for the other browsers
 		get.onreadystatechange = function() {
 			if ( this.readyState !== 4 || this.status !== 200 && this.status !== 304){
 				return;
@@ -71,7 +71,7 @@
 	}
 	function parseCss(cb, css) {
 		//console.log(css);
-		var tokens = css.match(cssTokenizer);
+		var tokens = css[0].match(cssTokenizer);
 		var matches = [];
 		iterator.call(tokens, function(cssblock) {
 			if( isWhiteSpaceCssBlock.test(cssblock) ) {
