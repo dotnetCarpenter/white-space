@@ -31,8 +31,9 @@ So far there is three test cases and one test case that include all three:
 
 ### Changelog
 =======
++ 0.2.1 - excluding comments when looking for `white-space: none;`
 + 0.2.0 - added support for IE8
-+ 0.1.2 - fix bug when no white-space:none was found in CSS
++ 0.1.2 - fix bug when no `white-space:none` was found in CSS
 + 0.1.1 - switch to monad implementation
 + 0.1.0 - proof of concept
 
