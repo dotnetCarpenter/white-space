@@ -2,13 +2,12 @@
  * Polyfill for the proposed white-space:none; CSS property
  * http://lists.w3.org/Archives/Public/www-style/2013Apr/subject.html#msg472
  * This is a proof of concept and is only tested to work in current browsers (as of April 2013)
- * @version  13.5.3 	year.month.minor-version
+ * @version  13.5.4 	year.month.minor-version
  * Might have an issue with the DOM not being ready before removing white space.
  */
 ;(function whiteSpace(doc, win) {
 	"use strict";
-
-	var cssTokenizer = /([^{]+)\s*\{\s*([^}]+)\s*}/g;
+	var cssTokenizer = /([^{\/]+)\s*\{\s*([^}]+)\s*}/g;
 	var isWhiteSpaceCssBlock = /white-space\s*:\s*none\s*;/;
 	var cssSelector = /(.+)\s*{/;
 	var empty = /\s+/;
@@ -72,6 +71,7 @@
 	function parseCss(cb, css) {
 		//console.log(css);
 		var tokens = css[0].match(cssTokenizer);
+		console.dir(tokens);
 		var matches = [];
 		iterator.call(tokens, function(cssblock) {
 			if( isWhiteSpaceCssBlock.test(cssblock) ) {
