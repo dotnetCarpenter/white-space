@@ -7,7 +7,7 @@
  */
 ;(function whiteSpace(doc, win) {
 	"use strict";
-	var cssTokenizer = /([^{\/]+)\s*\{\s*([^}]+)\s*}/g;
+	var cssTokenizer = /([^";{\/]+)\s*\{\s*([^}]+)\s*}/g;
 	var isWhiteSpaceCssBlock = /white-space\s*:\s*none\s*;?/;
 	var cssSelector = /(.+)\s*{/;
 	var empty = /\s+/;
