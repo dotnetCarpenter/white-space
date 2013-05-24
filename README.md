@@ -23,7 +23,7 @@ So far there is three test cases and one test case that include all three:
 + IE10, IE9, IE8 on Win8
 + FF20, Saf6, Chr26, Op12 on OSX10.7 (Lion)
 
-**NOTE:** IE7 support requeries that `querySelectorAll` is replaced with something similar.
+**NOTE:** IE7 support requires that `querySelectorAll` is replaced with something similar.
 
 ###
 + http://lists.w3.org/Archives/Public/www-style/2013Mar/subject.html#msg756
