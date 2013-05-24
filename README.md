@@ -31,6 +31,7 @@ So far there is three test cases and one test case that include all three:
 
 ### Changelog
 =======
++ 0.2.2 - exclude @charset declaration kind of rules and fixed broken selector when `;` was missing at the end of the `white-space:none;` declaration (e.i. when minified).
 + 0.2.1 - excluding comments when looking for `white-space: none;`
 + 0.2.0 - added support for IE8
 + 0.1.2 - fix bug when no `white-space:none` was found in CSS
