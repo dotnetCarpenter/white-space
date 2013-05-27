@@ -10,9 +10,10 @@ Original written as a proof-of-concept, I've found `white-space: none;` really u
 1. Don't use `white-space: none;` inside @media queries - unless you want to apply `white-space: none;` to the selector regardless of your media query.
 2. Only use `white-space: none;` in external style sheets - the script won't look anywhere else.
 3. If your external style sheet is on a different domain, make sure you use [CORS](http://www.w3.org/TR/cors/).
-Let me know, in the [issue tracker](https://github.com/dotnetCarpenter/white-space/issues), if you stumple upon anything weird.
 
-The implementation works by removing empty nodes in the DOM, that are siblings to a node with ``white-space: none;``. The child nodes doesn't inherite ``white-space: none;``.
+Let me know, in the [issue tracker](https://github.com/dotnetCarpenter/white-space/issues), if you stumble upon anything weird.
+
+The implementation works by removing empty nodes in the DOM, that are siblings to a node with ``white-space: none;``. The child nodes doesn't inherit ``white-space: none;``.
 Furthermore, this polyfill only parse external CSS. So it won't even look at CSS in the header or inline.
 
 You can find a list of sites and people discussing issues with not having `white-space: none;` on the [wiki](https://github.com/dotnetCarpenter/white-space/wiki).
