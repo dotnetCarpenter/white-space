@@ -17,7 +17,7 @@
 			var args = getArguments.call(arguments);
 			var currentFn = this.shift();
 			if(!currentFn) return;	// done
-			currentFn.call(null, continuation, args);
+			currentFn.call(null, continuation, args[0]);
 		}
 		var continuation = bind(next, getArguments.call(arguments));
 		return continuation;
@@ -31,6 +31,14 @@
 			removeWhiteSpace
 		)(sheet.href);
 	});
+
+	function addEvent(element, event, listener) {
+		if(element.addEventListener) {
+			element.addEventListener(event, listener, false);
+		} else if(element.attachEvent) {
+			element.attachEvent('on' + event, listener);
+		}
+	}
 	
 	function bind(fn, obj){
 		if(fn.bind) return fn.bind(obj);
@@ -64,18 +72,18 @@
 				cb(this.responseText);
 		}
 		try {
-			get.open('GET', url[0]);	// apparently IE8 accepts an array here but we better not expect that for the other browsers
+			get.open('GET', url);	// apparently IE8 accepts an array here but we better not expect that for the other browsers
 			get.send();
 		} catch (e) {}
 	}
 	function parseCss(cb, css) {
-		//console.log(css);
-		var tokens = css[0].match(cssTokenizer);
-		console.dir(tokens);
+		//console.log("css", css);
+		var tokens = css.match(cssTokenizer);
+		//console.dir(tokens);
 		var matches = [];
 		iterator.call(tokens, function(cssblock) {
 			if( isWhiteSpaceCssBlock.test(cssblock) ) {
-				//console.log(cssblock);
+				//console.log("cssblock", cssblock);
 				matches.push(cssblock.match(cssSelector)[1]);
 			}
 		});
@@ -83,17 +91,17 @@
 			cb(matches);
 	}
 	function domReady(cb, selectors) {
-    if (document.readyState == "complete") {
+    if (document.readyState == 'complete') {
       cb(selectors);
     } else {
-    	document.onreadystatechange = function() { domReady(cb, selectors); }
+    	addEvent(document, 'readystatechange', function() { domReady(cb, selectors); });
     }
 	}
 	function removeWhiteSpace(cb, selectors) {
 		//console.dir(arguments);
 
 		iterator.call(selectors, function(selector) {
-			//console.log(selector);
+			//console.log("selector", selector);
 
 			var elements = doc.querySelectorAll(selector);
 			if(elements.length > 0) {
