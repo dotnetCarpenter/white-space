@@ -1,2 +1,0 @@
-dt {display: inline; white-space: none;}
-dt + dt::before {content: ", "; white-space: normal;}	
