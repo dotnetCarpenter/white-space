@@ -16,7 +16,7 @@
 			var args = getArguments.call(arguments);
 			var currentFn = this.shift();
 			if(!currentFn) return;	// done
-			currentFn.call(null, continuation, args[0]);
+			currentFn(continuation, args[0]);
 		}
 		var continuation = bind(next, getArguments.call(arguments));
 		return continuation;
