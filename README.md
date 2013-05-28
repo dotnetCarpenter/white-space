@@ -58,7 +58,7 @@ So far there is one use case, three test cases and one test case that include al
 ### Changelog
 + 0.4.0 - build system and bower support
 + 0.3.1 - fix event listeners overwriting each other
-+ 0.3.0 - DOMready feature, improved CSS tokenizer, better IE8 handling and a new test-case (real.html)
++ 0.3.0 - DOMready feature, improved CSS tokenizer, better IE8 handling and a new use-case (real.html)
 + 0.2.2 - exclude @charset declaration kind of rules and fixed broken selector when `;` was missing at the end of the `white-space:none;` declaration (e.i. when minified).
 + 0.2.1 - excluding comments when looking for `white-space: none;`
 + 0.2.0 - added support for IE8
