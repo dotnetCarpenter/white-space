@@ -1,10 +1,23 @@
 {
   "name": "css-white-space-none",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "main": "white-space.js",
+  "home": "https://github.com/dotnetCarpenter/white-space",
+  "licenses": [{
+    "type": "WTFPL",
+    "url": "https://github.com/dotnetCarpenter/white-space/LICENSE"
+  }],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dotnetCarpenter/white-space"
+  },
   "ignore": [
     "**/.*",
     "node_modules",
-    "components"
-  ]
+    "prelimininaries"
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.1"
+  }
 }

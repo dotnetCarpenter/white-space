@@ -1,0 +1,28 @@
+{
+  "name": "white-space",
+  "version": "0.4.0",
+  "private": true,
+  "description": "Polyfill for the proposed white-space:none; CSS property",
+  "main": "white-space.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dotnetCarpenter/white-space.git"
+  },
+  "keywords": [
+    "css"
+  ],
+  "author": "dotnetCarpenter",
+  "license": "WTFPL",
+  "readmeFilename": "README.md",
+  "gitHead": "5176e8a16ffad73e7544d1b9a7980fd9201a4e83",
+  "bugs": {
+    "url": "https://github.com/dotnetCarpenter/white-space/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.1"
+  }
+}
