@@ -1,0 +1,10 @@
+{
+  "name": "css-white-space-none",
+  "version": "0.3.1",
+  "main": "white-space.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}
