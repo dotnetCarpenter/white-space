@@ -1,7 +1,7 @@
 /**
  * Polyfill for the proposed white-space:none; CSS property
  * http://lists.w3.org/Archives/Public/www-style/2013Apr/subject.html#msg472
- * @version 0.4.0
+ * @version 1.0.0
  */
 ;(function whiteSpace(doc, win) {
 	"use strict";

@@ -1,23 +1,31 @@
 {
   "name": "css-white-space-none",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "private": true,
+  "home": "https://github.com/dotnetCarpenter/white-space",
   "description": "Polyfill for the proposed white-space:none; CSS property",
   "main": "white-space.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"This package only contains visual tests - see test-cases directory\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/dotnetCarpenter/white-space.git"
   },
   "keywords": [
-    "css"
+    "css",
+    "white-space"
   ],
   "author": "dotnetCarpenter",
-  "license": "WTFPL",
+  "licenses": [{
+    "type": "WTFPL",
+    "url": "https://github.com/dotnetCarpenter/white-space/LICENSE"
+  }],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dotnetCarpenter/white-space"
+  },
   "readmeFilename": "README.md",
-  "gitHead": "5176e8a16ffad73e7544d1b9a7980fd9201a4e83",
   "bugs": {
     "url": "https://github.com/dotnetCarpenter/white-space/issues"
   },
