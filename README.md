@@ -65,6 +65,7 @@ So far there is one use case, three test cases and one test case that include al
 + http://lists.w3.org/Archives/Public/www-style/2013Apr/subject.html#msg497
 
 ### Changelog
++ 1.0.1 - handle css without selectors
 + 1.0.0 - first public release
 + 0.4.0 - build system and bower support - faulty release, as bower support didn't work
 + 0.3.1 - fix event listeners overwriting each other

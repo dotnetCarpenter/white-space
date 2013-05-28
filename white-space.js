@@ -1,7 +1,7 @@
 /**
  * Polyfill for the proposed white-space:none; CSS property
  * http://lists.w3.org/Archives/Public/www-style/2013Apr/subject.html#msg472
- * @version 1.0.0
+ * @version 1.0.1
  */
 ;(function whiteSpace(doc, win) {
 	"use strict";
@@ -77,7 +77,7 @@
 	}
 	function parseCss(cb, css) {
 		//console.log("css", css);
-		var tokens = css.match(cssTokenizer);
+		var tokens = css.match(cssTokenizer) || [];
 		//console.dir(tokens);
 		var matches = [];
 		iterator.call(tokens, function(cssblock) {
