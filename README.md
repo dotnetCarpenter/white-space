@@ -3,18 +3,27 @@
 
 ## Polyfill for the proposed white-space:none; CSS property
 
-Original written as a proof-of-concept, I've found `white-space: none;` really useful and it's now ready for development usage. You're probably better off using HTML comments, minification or similar in production but for development, it's pretty *tight*.
-
 `white-space: none;` is a highly requested feature of the CSS Text Module but is, as time of writing, only recognized as [an issue in CSS Text Module Level 3](http://www.w3.org/TR/css3-text/#pre-line).
+
+Original written as a proof-of-concept, I've found `white-space: none;` really useful and it's now ready for development usage. You're probably better off using HTML comments, minification or similar in production but for development, it's pretty *tight*.
 
 You can find a list of sites and people discussing issues with not having `white-space: none;` on the [wiki](https://github.com/dotnetCarpenter/white-space/wiki).
 
 ## Usage
+**CSS**
 ```css
   .foo {
     display: inline-block;
     white-space: none;
   }
+```
+**bower**
+```shell
+bower install css-white-space-none
+```
+```html
+<!-- insert where ever you want -->
+<script src="components/css-white-space-none/white-space.min.js"></script>
 ```
 
 ## Issues
