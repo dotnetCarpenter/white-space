@@ -1,5 +1,5 @@
 {
-  "name": "white-space",
+  "name": "css-white-space-none",
   "version": "0.4.0",
   "private": true,
   "description": "Polyfill for the proposed white-space:none; CSS property",
