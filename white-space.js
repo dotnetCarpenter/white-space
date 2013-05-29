@@ -98,17 +98,15 @@
 	}
 	function removeWhiteSpace(cb, selectors) {
 		//console.dir(arguments);
-
+		var outerEmpty = /^\s+|\s+$/g;
 		iterator.call(selectors, function(selector) {
 			//console.log("selector", selector);
-
 			var elements = doc.querySelectorAll(selector);
 			if(elements.length > 0) {
 				//console.log(elements);
 				iterator.call(elements, function(el) {
 					var content = el.outerHTML,
-					adjacent = el.nextSibling,
-					outerEmpty = /^\s+|\s+$/g;
+					adjacent = el.nextSibling;
 					if( outerEmpty.test(content) ) {
 						// trim the content - this works for IE8
 						el.outerHTML = content.replace(outerEmpty, '');
