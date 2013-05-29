@@ -89,39 +89,45 @@
 		if(matches.length)
 			cb(matches);
 	}
-	function domReady(cb, selectors) {
+	function getElements(cb, selectors) {
+		var elements = [],
+			nodelist;
+		iterator.call(selectors, function(selector) {
+			//console.log("selector", selector);
+			nodelist = doc.querySelectorAll(selector);
+			iterator.call(nodelist, function(node) {
+				elements.push(node);
+			});
+		});
+		cb(nodelist);
+	}
+	function domReady(cb, elements) {
+		iterator.call(elements, function(element) {
+			//Issue: we can not call the next function on each element - it would break the design of optimist
+		});
     if (document.readyState == 'complete') {
       cb(selectors);
     } else {
     	addEvent(document, 'readystatechange', function() { domReady(cb, selectors); });
     }
 	}
-	function removeWhiteSpace(cb, selectors) {
+	function removeWhiteSpace(cb, elements) {
 		//console.dir(arguments);
-
-		iterator.call(selectors, function(selector) {
-			//console.log("selector", selector);
-
-			var elements = doc.querySelectorAll(selector);
-			if(elements.length > 0) {
-				//console.log(elements);
-				iterator.call(elements, function(el) {
-					var content = el.outerHTML,
-					adjacent = el.nextSibling,
-					outerEmpty = /^\s+|\s+$/g;
-					if( outerEmpty.test(content) ) {
-						// trim the content - this works for IE8
-						el.outerHTML = content.replace(outerEmpty, '');
-					}
-					// remove empty text node next to out element
-					// works in all other browsers than IE8
-					if( adjacent
-						&& adjacent.nodeType === 3
-						&& empty.test(adjacent.nodeValue)
-					) {
-						adjacent.parentNode.removeChild(adjacent);
-					}
-				});
+		iterator.call(elements, function(el) {
+			var content = el.outerHTML,
+			adjacent = el.nextSibling,
+			outerEmpty = /^\s+|\s+$/g;//TODO: move outside loop
+			if( outerEmpty.test(content) ) {
+				// trim the content - this works for IE8
+				el.outerHTML = content.replace(outerEmpty, '');
+			}
+			// remove empty text node next to out element
+			// works in all other browsers than IE8
+			if( adjacent
+				&& adjacent.nodeType === 3
+				&& empty.test(adjacent.nodeValue)
+			) {
+				adjacent.parentNode.removeChild(adjacent);
 			}
 		});
 		cb();
