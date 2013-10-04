@@ -1,0 +1,26 @@
+/**
+ * @version 1.1
+ */
+.row {
+  background-color:yellow;
+  margin: 4px;
+  width: 480px;
+}
+.normal { font-family: "Arial"; }
+.busted { font-family: "Trebuchet MS"; }
+.label {
+  display: inline-block;
+  width: 30%;
+  background-color: #beffff;
+  height: 22.4px;
+}
+.box {
+  display: inline-block;
+  margin-left: 2%;
+  width: 67%;
+  height: 22.4px;
+  background-color: lightgray;
+  white-space: normal;
+}
+label.fix { white-space: none; }
+.fix { white-space: none; }

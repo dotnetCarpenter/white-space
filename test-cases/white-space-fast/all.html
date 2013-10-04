@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>white-space: none;</title>
+	<link href="unordered-list.css" rel="stylesheet"/>
+	<link href="trebuchet-overflow.css" rel="stylesheet"/>
+	<link href="images-as-list.css" rel="stylesheet"/>
+  <script type="text/javascript" src="../white-space-fast.js"></script>
+</head>
+<body>
+	<label>UL with white space</label>
+	<ul>
+		<li>Lorem</li>
+		<li>Ipsum</li>
+		<li>Lorem</li>
+		<li>Ipsum</li>
+	</ul>
+
+	<label>UL with-out white space</label>
+	<ul>
+		<li>Lorem</li><li>Ipsum</li><li>Lorem</li><li>Ipsum</li>
+	</ul>
+
+	<hr/>
+
+	<p>
+    Test case inspired by <a href="http://lists.w3.org/Archives/Public/www-style/2013Mar/att-0718/trebuchet-overflow.html">http://lists.w3.org/Archives/Public/www-style/2013Mar/att-0718/trebuchet-overflow.html</a>
+	</p>
+	<label>With white-space fix</label>
+	<div class="row normal">
+		<div class="label fix">label one</div>
+		<div class="box">box one</div>
+	</div>
+	<div class="row busted">
+		<div class="label fix">label two</div>
+		<div class="box">box two</div>
+	</div>
+
+	<label>With-out white-space fix</label>
+	<div class="row normal">
+		<div class="label">label one</div>
+		<div class="box">box one</div>
+	</div>
+	<div class="row busted">
+		<div class="label">label two</div>
+		<div class="box">box two</div>
+	</div>
+
+	<hr/>
+
+  <label>IMG with white space</label>
+  <div class="images">
+    <img src="http://spaceholder.co/p/256" alt="lorem ipsum" />
+    <img src="http://spaceholder.co/p/256" alt="lorem ipsum" />
+    <img src="http://spaceholder.co/p/256" alt="lorem ipsum" />
+    <img src="http://spaceholder.co/p/256" alt="lorem ipsum" />
+  </div>
+
+  <label>IMG with-out white space</label>
+  <div class="images">
+    <img src="http://spaceholder.co/p/256" alt="lorem ipsum"
+    /><img src="http://spaceholder.co/p/256" alt="lorem ipsum"
+    /><img src="http://spaceholder.co/p/256" alt="lorem ipsum"
+    /><img src="http://spaceholder.co/p/256" alt="lorem ipsum" />
+  </div>
+</body>
+</html>
