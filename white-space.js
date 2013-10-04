@@ -1,7 +1,7 @@
 /**
  * Polyfill for the proposed white-space:none; CSS property
  * http://lists.w3.org/Archives/Public/www-style/2013Apr/subject.html#msg472
- * @version 1.0.1
+ * @version 1.1.0
  */
 ;(function whiteSpace(doc, win) {
 	"use strict";
@@ -22,6 +22,7 @@
 		return continuation;
 	}
 
+	// start program
 	iterator.call(stylesheets, function(sheet) {
 		optimist(
 			ajax,
@@ -30,6 +31,7 @@
 			removeWhiteSpace
 		)(sheet.href);
 	});
+	// end program
 
 	function addEvent(element, event, listener) {
 		if(element.addEventListener) {
@@ -71,7 +73,7 @@
 				cb(this.responseText);
 		}
 		try {
-			get.open('GET', url);	// apparently IE8 accepts an array here but we better not expect that for the other browsers
+			get.open('GET', url);	// apparently IE8 accepts an array here but we better not expect that for other browsers
 			get.send();
 		} catch (e) {}
 	}
@@ -90,10 +92,10 @@
 			cb(matches);
 	}
 	function domReady(cb, selectors) {
-    if (document.readyState == 'complete') {
+    if (doc.readyState == 'complete') {
       cb(selectors);
     } else {
-    	addEvent(document, 'readystatechange', function() { domReady(cb, selectors); });
+    	addEvent(doc, 'readystatechange', function() { domReady(cb, selectors); });
     }
 	}
 	function removeWhiteSpace(cb, selectors) {
