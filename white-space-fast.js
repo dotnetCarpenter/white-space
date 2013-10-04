@@ -96,7 +96,8 @@
       cb(matches);
   }
   function domReady(cb, selectors) {
-    if (doc.readyState == 'DOMContentLoaded') {
+    if (doc.readyState == 'complete' || doc.readyState == 'interactive') {
+      //console.log(doc.readyState);
       cb(selectors);
     } else if(!domReady.applied) {
       domReady.applied = true;
