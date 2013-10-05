@@ -94,8 +94,9 @@
 	function domReady(cb, selectors) {
     if (doc.readyState == 'complete') {
       cb(selectors);
-    } else {
-    	addEvent(doc, 'readystatechange', function() { domReady(cb, selectors); });
+    } else if(!domReady.applied) {
+      domReady.applied = true;
+      addEvent(doc, 'readystatechange', function() { domReady(cb, selectors); });
     }
 	}
 	function removeWhiteSpace(cb, selectors) {
