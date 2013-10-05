@@ -18,6 +18,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
   // Register building task
-  grunt.registerTask('default', ['uglify']); // for 
+  grunt.registerTask('default', ['uglify']); // for convenience
   grunt.registerTask('build', ['uglify']);
 }
