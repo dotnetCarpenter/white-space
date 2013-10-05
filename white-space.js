@@ -80,11 +80,11 @@
 	function parseCss(cb, css) {
 		//console.log("css", css);
 		var tokens = css.match(cssTokenizer) || [];
-		//console.dir(tokens);
+		console.dir(tokens);
 		var matches = [];
 		iterator.call(tokens, function(cssblock) {
 			if( isWhiteSpaceCssBlock.test(cssblock) ) {
-				//console.log("cssblock", cssblock);
+				console.log("cssblock", cssblock);
 				matches.push(cssblock.match(cssSelector)[1]);
 			}
 		});
@@ -94,8 +94,7 @@
 	function domReady(cb, selectors) {
     if (doc.readyState == 'complete') {
       cb(selectors);
-    } else if(!domReady.applied) {
-      domReady.applied = true;
+    } else {
       addEvent(doc, 'readystatechange', function() { domReady(cb, selectors); });
     }
 	}

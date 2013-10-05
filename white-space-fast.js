@@ -96,13 +96,13 @@
       cb(matches);
   }
   function domReady(cb, selectors) {
-    if (doc.readyState == 'complete' || doc.readyState == 'interactive') {
+    if (doc.readyState == 'complete' || doc.readyState == 'DOMContentLoaded'/* || doc.readyState == 'interactive'*/) {
       //console.log(doc.readyState);
       cb(selectors);
-    } else if(!domReady.applied) {
-      domReady.applied = true;
+    } else /*if(!domReady.applied) {
+      domReady.applied = true;*/
       addEvent(doc, 'readystatechange', function() { domReady(cb, selectors); });
-    }
+   // }
   }
   function removeWhiteSpace(cb, selectors) {
     //console.dir(arguments);
