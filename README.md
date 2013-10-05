@@ -79,9 +79,10 @@ So far there is one use case, three test cases and one test case that include al
 \* Click the "Run white-space:none; script" button at the top
 
 ## Tested in
-+ FF24.0, Chr 30.0, IE10, IE9, IE8 on Win7 (`white-space-fast.js` NO support for IE8)
++ FF24, Chr30, IE10, IE9, IE8 on Win7 (`white-space-fast.js` NO support for IE8)
 + IE10, IE9, IE8 on Win8 (`white-space-fast.js` NO support for IE8)
 + FF21, Saf6, Chr27, Op12 on OSX10.7 (Lion)
++ Internet (android stock browser) 4.0.4, Dolfin 10.1, FF24, Chr30, Op12.1.4 on Android 4.0.4
 
 **NOTE:** IE7 support requires that `querySelectorAll` is replaced with something similar.
 
