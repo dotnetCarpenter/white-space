@@ -38,6 +38,10 @@ OR
 <script src="bower_components/css-white-space-none/white-space-fast.min.js"></script>
 ```
 
+## Size
++ `white-space.min.js` - 1.37 KB
++ `white-space-fast.min.js` - 1.33 KB
+
 ## Issues
 
 `white-space: none;` comes with a few known limitations, you need to cater for.

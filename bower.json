@@ -5,7 +5,9 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "prelimininaries"
+    "test-cases",
+    "Gruntfile.js",
+    "web.config"
   ],
   "devDependencies": {
     "grunt": "~0.4.1",
