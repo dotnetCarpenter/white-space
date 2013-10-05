@@ -69,11 +69,18 @@ So far there is one use case, three test cases and one test case that include al
 + [all.html](http://dotnetcarpenter.github.io/white-space/test-cases/all.html)
 + [real.html](http://dotnetcarpenter.github.io/white-space/test-cases/real.html)
 
+**white-space-fast.js**
++ [unordered-list.html](http://dotnetcarpenter.github.io/white-space/test-cases/white-space-fast/unordered-list.html)*
++ [images-as-list.html](http://dotnetcarpenter.github.io/white-space/test-cases/white-space-fast/images-as-list.html)*
++ [trebuchet-overflow.html](http://dotnetcarpenter.github.io/white-space/test-cases/white-space-fast/trebuchet-overflow.html)
++ [all.html](http://dotnetcarpenter.github.io/white-space/test-cases/white-space-fast/all.html)
++ [real.html](http://dotnetcarpenter.github.io/white-space/test-cases/white-space-fast/real.html)
+
 \* Click the "Run white-space:none; script" button at the top
 
 ## Tested in
-+ IE10, IE9, IE8 on Win7
-+ IE10, IE9, IE8 on Win8
++ FF24.0, Chr 30.0, IE10, IE9, IE8 on Win7 (`white-space-fast.js` NO support for IE8)
++ IE10, IE9, IE8 on Win8 (`white-space-fast.js` NO support for IE8)
 + FF21, Saf6, Chr27, Op12 on OSX10.7 (Lion)
 
 **NOTE:** IE7 support requires that `querySelectorAll` is replaced with something similar.
