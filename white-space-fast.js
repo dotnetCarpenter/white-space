@@ -26,16 +26,25 @@
     return continuation;
   }
 
+    // var perf;
+  // perf = win.performance.now();
+
   // start program
   iterator.call(stylesheets, function(sheet) {
     optimist(
       ajax,
       parseCss,
       domReady,
-      removeWhiteSpace
+      removeWhiteSpace/*,
+      timer*/
     )(sheet.href);
   });
   // end program
+
+  // function timer(cb) {
+  //   console.log(win.performance.now() - perf);
+  //   cb();
+  // }
 
   function addEvent(element, event, listener) {
     if(element.addEventListener) {
@@ -96,17 +105,16 @@
       cb(matches);
   }
   function domReady(cb, selectors) {
-    if (doc.readyState == 'complete' || doc.readyState == 'DOMContentLoaded'/* || doc.readyState == 'interactive'*/) {
+    if (doc.readyState == 'complete' || doc.readyState == 'interactive') {
       //console.log(doc.readyState);
       cb(selectors);
-    } else /*if(!domReady.applied) {
-      domReady.applied = true;*/
+    } else {
+      // addEvent(doc, 'DOMContentLoaded', function() {cb(selectors); } );
       addEvent(doc, 'readystatechange', function() { domReady(cb, selectors); });
-   // }
+    }
   }
   function removeWhiteSpace(cb, selectors) {
     //console.dir(arguments);
-    var outerEmpty = /^\s+|\s+$/g;
     iterator.call(selectors, function(selector) {
       //console.log("selector", selector);
       var elements = doc.querySelectorAll(selector);
@@ -115,10 +123,6 @@
         iterator.call(elements, function(el) {
           var content = el.outerHTML,
           adjacent = el.nextSibling;
-          if( outerEmpty.test(content) ) {
-            // trim the content - this works for IE8
-            el.outerHTML = content.replace(outerEmpty, '');
-          }
           // remove empty text node next to out element
           // works in all other browsers than IE8
           if( adjacent

@@ -1,6 +1,6 @@
 {
   "name": "css-white-space-none",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "private": true,
   "home": "https://github.com/dotnetCarpenter/white-space",
   "description": "Polyfill for the proposed white-space:none; CSS property",

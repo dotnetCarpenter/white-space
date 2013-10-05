@@ -22,16 +22,25 @@
 		return continuation;
 	}
 
+	// var perf;
+	// perf = win.performance.now();
+
 	// start program
 	iterator.call(stylesheets, function(sheet) {
 		optimist(
 			ajax,
 			parseCss,
 			domReady,
-			removeWhiteSpace
+			removeWhiteSpace/*,
+			timer*/
 		)(sheet.href);
 	});
 	// end program
+
+	// function timer(cb) {
+  //   console.log(win.performance.now() - perf);
+  //   cb();
+	// }
 
 	function addEvent(element, event, listener) {
 		if(element.addEventListener) {
@@ -80,11 +89,11 @@
 	function parseCss(cb, css) {
 		//console.log("css", css);
 		var tokens = css.match(cssTokenizer) || [];
-		console.dir(tokens);
+		//console.dir(tokens);
 		var matches = [];
 		iterator.call(tokens, function(cssblock) {
 			if( isWhiteSpaceCssBlock.test(cssblock) ) {
-				console.log("cssblock", cssblock);
+				//console.log("cssblock", cssblock);
 				matches.push(cssblock.match(cssSelector)[1]);
 			}
 		});
