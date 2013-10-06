@@ -83,6 +83,7 @@ So far there is one use case, three test cases and one test case that include al
 + IE10, IE9, IE8 on Win8 (`white-space-fast.js` NO support for IE8)
 + FF21, Saf6, Chr27, Op12 on OSX10.7 (Lion)
 + Internet (android stock browser) 4.0.4, Dolfin 10.1, FF24, Chr30, Op12.1.4 on Android 4.0.4
++ Saf6 on iOS 6.1.3
 
 **NOTE:** IE7 support requires that `querySelectorAll` is replaced with something similar.
 
