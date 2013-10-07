@@ -22,16 +22,25 @@
 		return continuation;
 	}
 
+	// var perf;
+	// perf = win.performance.now();
+
 	// start program
 	iterator.call(stylesheets, function(sheet) {
 		optimist(
 			ajax,
 			parseCss,
 			domReady,
-			removeWhiteSpace
+			removeWhiteSpace/*,
+			timer*/
 		)(sheet.href);
 	});
 	// end program
+
+	// function timer(cb) {
+  //   console.log(win.performance.now() - perf);
+  //   cb();
+	// }
 
 	function addEvent(element, event, listener) {
 		if(element.addEventListener) {
@@ -95,7 +104,7 @@
     if (doc.readyState == 'complete') {
       cb(selectors);
     } else {
-    	addEvent(doc, 'readystatechange', function() { domReady(cb, selectors); });
+      addEvent(doc, 'readystatechange', function() { domReady(cb, selectors); });
     }
 	}
 	function removeWhiteSpace(cb, selectors) {

@@ -8,7 +8,8 @@ module.exports = function(grunt) {
       },
       my_target: {
         files: {
-          'white-space.min.js': ['white-space.js']
+          'white-space.min.js': ['white-space.js'],
+          'white-space-fast.min.js': ['white-space-fast.js']
         }
       }
     }
@@ -17,5 +18,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
   // Register building task
+  grunt.registerTask('default', ['uglify']); // for convenience
   grunt.registerTask('build', ['uglify']);
 }
