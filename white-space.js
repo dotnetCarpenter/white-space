@@ -26,11 +26,11 @@
 	// perf = win.performance.now();
 
 	// start program
-	iterator.call(stylesheets, function(sheet) {
+	iterator.call(stylesheets, function(sheet) { // optimist is called for each stylesheet
 		optimist(
 			ajax,
 			parseCss,
-			domReady,
+			once(domReady),
 			removeWhiteSpace/*,
 			timer*/
 		)(sheet.href);
@@ -41,6 +41,17 @@
   //   console.log(win.performance.now() - perf);
   //   cb();
 	// }
+
+	function once(fn) {
+    var ran;
+    return function(cb, arg) {
+      if(ran) {
+        return;
+      }
+      ran = true;
+      fn(cb, arg);
+    }
+  }
 
 	function addEvent(element, event, listener) {
 		if(element.addEventListener) {
@@ -87,31 +98,35 @@
 		} catch (e) {}
 	}
 	function parseCss(cb, css) {
-		//console.log("css", css);
+		// console.log("css", css);
 		var tokens = css.match(cssTokenizer) || [];
-		//console.dir(tokens);
+		// console.dir(tokens);
 		var matches = [];
 		iterator.call(tokens, function(cssblock) {
 			if( isWhiteSpaceCssBlock.test(cssblock) ) {
-				//console.log("cssblock", cssblock);
+				// console.log("cssblock", cssblock);
 				matches.push(cssblock.match(cssSelector)[1]);
 			}
 		});
+		// console.log("Found " + matches.length + " css selectors with white-space:none");
 		if(matches.length)
 			cb(matches);
 	}
-	function domReady(cb, selectors) {
-    if (doc.readyState == 'complete') {
+	// INFO: http://www.whatwg.org/specs/web-apps/current-work/multipage/the-end.html#the-end
+  function domReady(cb, selectors) {
+    if (doc.readyState == 'complete' || doc.readyState == 'loaded') { // loaded - fix android 2.3
+      // console.log(doc.readyState);
       cb(selectors);
     } else {
+      addEvent(doc, 'DOMContentLoaded', function() { cb(selectors); } ); // fix for android 2.3
       addEvent(doc, 'readystatechange', function() { domReady(cb, selectors); });
     }
-	}
+  }
 	function removeWhiteSpace(cb, selectors) {
 		//console.dir(arguments);
 		var outerEmpty = /^\s+|\s+$/g;
 		iterator.call(selectors, function(selector) {
-			//console.log("selector", selector);
+			// console.log("selector", selector);
 			var elements = doc.querySelectorAll(selector);
 			if(elements.length > 0) {
 				//console.log(elements);

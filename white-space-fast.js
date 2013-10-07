@@ -30,11 +30,11 @@
   // perf = win.performance.now();
 
   // start program
-  iterator.call(stylesheets, function(sheet) {
+  iterator.call(stylesheets, function(sheet) { // optimist is called for each stylesheet
     optimist(
       ajax,
       parseCss,
-      domReady,
+      once(domReady),
       removeWhiteSpace/*,
       timer*/
     )(sheet.href);
@@ -45,6 +45,17 @@
   //   console.log(win.performance.now() - perf);
   //   cb();
   // }
+
+  function once(fn) {
+    var ran;
+    return function(cb, arg) {
+      if(ran) {
+        return;
+      }
+      ran = true;
+      fn(cb, arg);
+    }
+  }
 
   function addEvent(element, event, listener) {
     if(element.addEventListener) {
@@ -101,16 +112,17 @@
         matches.push(cssblock.match(cssSelector)[1]);
       }
     });
+    //console.log("Found " + matches.length + " css selectors with white-space:none");
     if(matches.length)
       cb(matches);
   }
   // INFO: http://www.whatwg.org/specs/web-apps/current-work/multipage/the-end.html#the-end
   function domReady(cb, selectors) {
-    if (doc.readyState == 'complete' || doc.readyState == 'interactive') {
+    if (doc.readyState == 'complete' || doc.readyState == 'interactive' || doc.readyState == 'loaded') { // loaded - fix android 2.3
       //console.log(doc.readyState);
       cb(selectors);
     } else {
-      // addEvent(doc, 'DOMContentLoaded', function() {cb(selectors); } );
+      addEvent(doc, 'DOMContentLoaded', function() { cb(selectors); } ); // fix for android 2.3
       addEvent(doc, 'readystatechange', function() { domReady(cb, selectors); });
     }
   }

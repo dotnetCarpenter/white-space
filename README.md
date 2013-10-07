@@ -39,8 +39,8 @@ OR
 ```
 
 ## Size
-+ `white-space.min.js` - 1.37 KB
-+ `white-space-fast.min.js` - 1.33 KB
++ `white-space.min.js` - 1.49 KB
++ `white-space-fast.min.js` - 1.46 KB
 
 ## Issues
 
