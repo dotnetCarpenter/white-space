@@ -95,6 +95,7 @@
     if(matches.length)
       cb(matches);
   }
+  // INFO: http://www.whatwg.org/specs/web-apps/current-work/multipage/the-end.html#the-end
   function domReady(cb, selectors) {
     if (doc.readyState == 'complete' || doc.readyState == 'interactive') {
       //console.log(doc.readyState);
