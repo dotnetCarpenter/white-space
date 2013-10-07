@@ -56,6 +56,7 @@ Let me know, in the [issue tracker](https://github.com/dotnetCarpenter/white-spa
 The implementation works by removing empty nodes in the DOM, that are siblings to a node with ``white-space: none;``. The child nodes doesn't inherit ``white-space: none;``.
 Furthermore, this polyfill only parse external CSS. So it won't even look at CSS in the header or inline.
 `white-space-fast.js` calls the removal of empty DOM nodes on `document.readyState == 'interactive'` as oppose to `white-space.js`, which remove empty DOM nodes on `document.readyState == 'complete'`.
+Version 1.1.1 also test for `document.readyState == 'loaded'`.
 
 ## Tests
 
@@ -83,6 +84,7 @@ So far there is one use case, three test cases and one test case that include al
 + IE10, IE9, IE8 on Win8 (`white-space-fast.js` NO support for IE8)
 + FF21, Saf6, Chr27, Op12 on OSX10.7 (Lion)
 + Internet (android stock browser) 4.0.4, Dolfin 10.1, FF24, Chr30, Op12.1.4 on Android 4.0.4
++ Internet (android stock browser) 2.3 on Android 2.3.7
 + Saf6 on iOS 6.1.3
 
 **NOTE:** IE7 support requires that `querySelectorAll` is replaced with something similar.
@@ -92,6 +94,7 @@ So far there is one use case, three test cases and one test case that include al
 + http://lists.w3.org/Archives/Public/www-style/2013Apr/subject.html#msg497
 
 ### Changelog
++ 1.1.1 - fix DOM ready detection for Android 2.3
 + 1.1.0 - New white-space-fast.js implementation
 + 1.0.1 - handle css without selectors
 + 1.0.0 - first public release

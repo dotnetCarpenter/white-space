@@ -1,6 +1,6 @@
 {
   "name": "css-white-space-none",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": ["white-space.js", "white-space-fast.js"],
   "ignore": [
     "**/.*",
