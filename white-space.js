@@ -58,11 +58,11 @@
     }
   }
 
-  function addEvent(element, event, listener) {
+  function addEvent(element, type, listener) {
     if(element.addEventListener) {
-      element.addEventListener(event, listener, false);
+      element.addEventListener(type, listener, false);
     } else if(element.attachEvent) {
-      element.attachEvent('on' + event, listener);
+      element.attachEvent('on' + type, listener);
     }
     return { el:element, t:type, l:listener };
   }
@@ -170,8 +170,20 @@
     cb();
   }
   function done(cb, elements) {
-    var evDone = new Event("WhiteSpaceDone");
-    if(elements) {
+    var evDone;
+    if(doc.implementation.hasFeature("Events", "4.0"))
+      evDone = new Event("WhiteSpaceDone");
+    else if(doc.implementation.hasFeature("Events", "3.0")){ // IE9+
+      evDone = doc.createEvent("CustomEvent");
+      evDone.initCustomEvent("WhiteSpaceDone", true, true, undefined);
+    } else { // IE8
+      // Probably better to use a generic event:
+      //http://www.w3.org/TR/DOM-Level-2-Events/events.html#Events-Event
+      // Guide:
+      //http://www.howtocreate.co.uk/tutorials/javascript/domevents
+      return cb();
+    }
+    if(elements && elements.length) {
       elements[0].parentNode.dispatchEvent(evDone);
     } else {
       doc.dispatchEvent(evDone);

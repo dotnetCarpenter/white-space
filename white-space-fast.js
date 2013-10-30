@@ -160,8 +160,18 @@
     cb(elements);
   }
   function done(cb, elements) {
-    var evDone = new Event("WhiteSpaceDone");
-    if(elements) {
+    var evDone;
+    if(document.implementation.hasFeature("Events", "4.0"))
+      evDone = new Event("WhiteSpaceDone");
+    else { // IE
+      evDone = doc.createEvent("CustomEvent");
+      evDone.initCustomEvent("WhiteSpaceDone", true, true, undefined);
+      // Probably better to use a generic event:
+      //http://www.w3.org/TR/DOM-Level-2-Events/events.html#Events-Event
+      // Guide:
+      //http://www.howtocreate.co.uk/tutorials/javascript/domevents
+    }
+    if(elements && elements.length) {
       elements[0].parentNode.dispatchEvent(evDone);
     } else {
       doc.dispatchEvent(evDone);
