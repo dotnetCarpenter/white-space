@@ -58,11 +58,11 @@
     }
   }
 
-  function addEvent(element, event, listener) {
+  function addEvent(element, type, listener) {
     if(element.addEventListener) {
-      element.addEventListener(event, listener, false);
+      element.addEventListener(type, listener, false);
     } else if(element.attachEvent) {
-      element.attachEvent('on' + event, listener);
+      element.attachEvent('on' + type, listener);
     }
     return { el:element, t:type, l:listener };
   }
@@ -170,7 +170,7 @@
     cb();
   }
   function done(cb, elements) {
-    var evDone = new Event("WhiteSpaceDone");
+    var evDone = document.createEvent("WhiteSpaceDone");
     if(elements) {
       elements[0].parentNode.dispatchEvent(evDone);
     } else {

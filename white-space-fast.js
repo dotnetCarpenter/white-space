@@ -160,7 +160,7 @@
     cb(elements);
   }
   function done(cb, elements) {
-    var evDone = new Event("WhiteSpaceDone");
+    var evDone = document.createEvent("WhiteSpaceDone");
     if(elements) {
       elements[0].parentNode.dispatchEvent(evDone);
     } else {
