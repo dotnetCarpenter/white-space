@@ -5,7 +5,7 @@
  * This edition supports "DOMContentLoaded" instead of "complete" event. This mean that it's
  * faster than the ordinary white-space.js but you **MUST** place the white-space script *after*
  * your style sheets.
- * @version 2013.10.2 (v1.1.1)
+ * @version 2013.10.3 (v1.2.0)
  */
 ;(function whiteSpace(doc, win) {
   "use strict";
@@ -15,7 +15,7 @@
   var empty = /\s+/;
   var stylesheets = doc.styleSheets;  // is a StyleSheetList which can not be converted to an array (in FF)
   var stop = null;
-  var optimist = function() { // continuation passing style - runs all supplied functions unless there is an rejection, then it stops.
+  var compose = function() { // continuation passing style - runs all supplied functions unless there is an rejection, then it stops.
     function next(){
       var args = getArguments.call(arguments);
       var currentFn = this.shift();
@@ -26,24 +26,29 @@
     return continuation;
   }
 
-    // var perf;
-  // perf = win.performance.now();
-
   // start program
-  iterator.call(stylesheets, function(sheet) { // optimist is called for each stylesheet
-    optimist(
+  iterator.call(stylesheets, function(sheet) { // the composition is called for each external stylesheet
+    if(!sheet.href)
+      return;
+    compose(
       ajax,
       parseCss,
       once(domReady),
-      removeWhiteSpace/*,
-      timer*/
+      removeWhiteSpace,
+      done/*,
+      timer()*/
     )(sheet.href);
   });
   // end program
 
-  // function timer(cb) {
-  //   console.log(win.performance.now() - perf);
-  //   cb();
+  // function timer() {    
+  //   var perf = win.performance.now();
+  //   return function(cb) {
+  //     console.log(win.performance.now() - perf);
+  //     // call the next function with all the arguments minus the call-back
+  //     var args = Array.prototype.splice.call(arguments, 1);
+  //     cb.apply(undefined, args );
+  //   }
   // }
 
   function once(fn) {
@@ -57,12 +62,12 @@
     }
   }
 
-  function addEvent(element, event, listener) {
-    if(element.addEventListener) {
-      element.addEventListener(event, listener, false);
-    } else if(element.attachEvent) {
-      element.attachEvent('on' + event, listener);
-    }
+  function addEvent(element, type, listener) {
+    element.addEventListener(type, listener, false);
+    return { el:element, t:type, l:listener };
+  }
+  function removeEvent(e) {
+    e.el.removeEventListener(e.type, l, false);
   }
   
   function bind(fn, obj){
@@ -118,19 +123,24 @@
   }
   // INFO: http://www.whatwg.org/specs/web-apps/current-work/multipage/the-end.html#the-end
   function domReady(cb, selectors) {
+    var events = [];
     if (doc.readyState == 'complete' || doc.readyState == 'interactive' || doc.readyState == 'loaded') { // loaded - fix android 2.3
       //console.log(doc.readyState);
+      iterator.call(events, function(e) {
+        removeEvent(e);
+      });
       cb(selectors);
     } else {
-      addEvent(doc, 'DOMContentLoaded', function() { cb(selectors); } ); // fix for android 2.3
-      addEvent(doc, 'readystatechange', function() { domReady(cb, selectors); });
+      events.push(addEvent(doc, 'DOMContentLoaded', function() { cb(selectors); } )); // fix for android 2.3
+      events.push(addEvent(doc, 'readystatechange', function() { domReady(cb, selectors); }));
     }
   }
   function removeWhiteSpace(cb, selectors) {
     //console.dir(arguments);
+    var elements;
     iterator.call(selectors, function(selector) {
       //console.log("selector", selector);
-      var elements = doc.querySelectorAll(selector);
+      elements = doc.querySelectorAll(selector);
       if(elements.length > 0) {
         //console.log(elements);
         iterator.call(elements, function(el) {
@@ -147,6 +157,15 @@
         });
       }
     });
+    cb(elements);
+  }
+  function done(cb, elements) {
+    var evDone = new Event("WhiteSpaceDone");
+    if(elements) {
+      elements[0].parentNode.dispatchEvent(evDone);
+    } else {
+      doc.dispatchEvent(evDone);
+    }
     cb();
-}
+  }
 })(document, window);

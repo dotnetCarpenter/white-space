@@ -1,36 +1,35 @@
 {
   "name": "css-white-space-none",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "home": "https://github.com/dotnetCarpenter/white-space",
   "description": "Polyfill for the proposed white-space:none; CSS property",
   "main": "white-space.js",
   "scripts": {
-    "test": "echo \"This package only contains visual tests - see test-cases directory\" && exit 1"
+    "test": "echo \"This package only contains visual tests - see test-cases directory\" && exit 0"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/dotnetCarpenter/white-space.git"
+    "url": "https://github.com/dotnetCarpenter/white-space"
   },
   "keywords": [
     "css",
     "white-space"
   ],
   "author": "dotnetCarpenter",
-  "licenses": [{
-    "type": "WTFPL",
-    "url": "https://github.com/dotnetCarpenter/white-space/LICENSE"
-  }],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dotnetCarpenter/white-space"
-  },
+  "licenses": [
+    {
+      "type": "WTFPL",
+      "url": "https://github.com/dotnetCarpenter/white-space/LICENSE"
+    }
+  ],
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/dotnetCarpenter/white-space/issues"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
-    "grunt-contrib-uglify": "~0.2.1"
+    "grunt-contrib-uglify": "~0.2.1",
+    "grunt-contrib-compress": "~0.5.2"
   }
 }
