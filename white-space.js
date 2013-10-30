@@ -181,6 +181,7 @@
       //http://www.w3.org/TR/DOM-Level-2-Events/events.html#Events-Event
       // Guide:
       //http://www.howtocreate.co.uk/tutorials/javascript/domevents
+      // http://help.dottoro.com/ljrinokx.php
       return cb();
     }
     if(elements && elements.length) {
