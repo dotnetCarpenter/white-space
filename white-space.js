@@ -177,9 +177,14 @@
       evDone = doc.createEvent("CustomEvent");
       evDone.initCustomEvent("WhiteSpaceDone", true, true, undefined);
     } else if(doc.documentElement.attachEvent) { // IE8
-      var mother = elements[0].parentNode;// note: parent is a keyword in IE8
-      mother.WhiteSpaceDone = false; // expando
-      mother.WhiteSpaceDone = true;  // will trigger onpropertychange in IE8
+      // var mother = elements[0];// note: "parent" refer to the window object's parent
+      // mother.WhiteSpaceDone = false; // expando
+      // mother.WhiteSpaceDone = true;  // will trigger onpropertychange in IE8
+      evDone = doc.createEventObject();
+      // //evDone.WhiteSpaceDone = true;
+      // elements[0].fireEvent("WhiteSpaceDone", evDone);
+      evDone.expando = "WhiteSpaceDone";
+      elements[0].fireEvent("onpropertychange", evDone);
       return cb();  // exit
     }
     if(elements && elements.length) {

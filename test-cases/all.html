@@ -10,14 +10,21 @@
   <script>
     addListener(); // listen for WhiteSpaceDone
     function log(e) {
-      if(console && console.log)
-        console.log(e.target);
+      if(console && console.log) {
+        if(e.target) {
+          console.log(e.target);
+        }
+        if(window.event.propertyName == "WhiteSpaceDone")
+          console.log(window.event);
+        if(window.event.expando == "WhiteSpaceDone")
+          console.log(window.event);
+      }
     }
     function addListener() {
       if(document.addEventListener) {
         document.addEventListener("WhiteSpaceDone", log, true);
       } else if(document.attachEvent) {
-        document.attachEvent("onpropertychange", log);
+        document.attachEvent("WhiteSpaceDone", log);
       }
     }
   </script>
