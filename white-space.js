@@ -171,18 +171,17 @@
   }
   function done(cb, elements) {
     var evDone;
+    if(doc.documentElement.attachEvent) { // IE8
+      var mother = elements[0].parentNode;// note: parent is a keyword in IE8
+      mother.WhiteSpaceDone = false; // expando
+      mother.WhiteSpaceDone = true;  // will trigger onpropertychange in IE8
+      return cb();  // exit
+    }
     if(doc.implementation.hasFeature("Events", "4.0"))
       evDone = new Event("WhiteSpaceDone");
     else if(doc.implementation.hasFeature("Events", "3.0")){ // IE9+
       evDone = doc.createEvent("CustomEvent");
       evDone.initCustomEvent("WhiteSpaceDone", true, true, undefined);
-    } else { // IE8
-      // Probably better to use a generic event:
-      //http://www.w3.org/TR/DOM-Level-2-Events/events.html#Events-Event
-      // Guide:
-      //http://www.howtocreate.co.uk/tutorials/javascript/domevents
-      // http://help.dottoro.com/ljrinokx.php
-      return cb();
     }
     if(elements && elements.length) {
       elements[0].parentNode.dispatchEvent(evDone);

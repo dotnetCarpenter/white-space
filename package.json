@@ -4,7 +4,7 @@
   "private": true,
   "home": "https://github.com/dotnetCarpenter/white-space",
   "description": "Polyfill for the proposed white-space:none; CSS property",
-  "main": "white-space.js",
+  "main": "white-space-fast.js",
   "scripts": {
     "test": "echo \"This package only contains visual tests - see test-cases directory\" && exit 0"
   },
