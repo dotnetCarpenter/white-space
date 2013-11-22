@@ -171,17 +171,16 @@
   }
   function done(cb, elements) {
     var evDone;
-    if(doc.documentElement.attachEvent) { // IE8
-      var mother = elements[0].parentNode;// note: parent is a keyword in IE8
-      mother.WhiteSpaceDone = false; // expando
-      mother.WhiteSpaceDone = true;  // will trigger onpropertychange in IE8
-      return cb();  // exit
-    }
     if(doc.implementation.hasFeature("Events", "4.0"))
       evDone = new Event("WhiteSpaceDone");
     else if(doc.implementation.hasFeature("Events", "3.0")){ // IE9+
       evDone = doc.createEvent("CustomEvent");
       evDone.initCustomEvent("WhiteSpaceDone", true, true, undefined);
+    } else if(doc.documentElement.attachEvent) { // IE8
+      var mother = elements[0].parentNode;// note: parent is a keyword in IE8
+      mother.WhiteSpaceDone = false; // expando
+      mother.WhiteSpaceDone = true;  // will trigger onpropertychange in IE8
+      return cb();  // exit
     }
     if(elements && elements.length) {
       elements[0].parentNode.dispatchEvent(evDone);
