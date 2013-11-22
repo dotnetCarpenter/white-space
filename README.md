@@ -47,7 +47,7 @@ document.addEventListener("WhiteSpaceDone", function(e) {
   console.dir(e.target);
 }, true); // set useCapture to true if you're not listening on the element dispatching WhiteSpaceDone
 // and for IE8 - not white-space-fast
-document.documentElement.attachEvent("onpropertychange", function(event) {
+document.documentElement.attachEvent("onpropertychange", function(e) {
   console.log(e.target);
 }
 ```

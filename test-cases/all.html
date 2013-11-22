@@ -6,7 +6,21 @@
 	<link href="unordered-list.css" rel="stylesheet"/>
 	<link href="trebuchet-overflow.css" rel="stylesheet"/>
 	<link href="images-as-list.css" rel="stylesheet"/>
-  <script type="text/javascript" src="../white-space.js"></script>
+  <script src="../white-space.js"></script>
+  <script>
+    addListener(); // listen for WhiteSpaceDone
+    function log(e) {
+      if(console && console.log)
+        console.log(e.target);
+    }
+    function addListener() {
+      if(document.addEventListener) {
+        document.addEventListener("WhiteSpaceDone", log, true);
+      } else if(document.attachEvent) {
+        document.attachEvent("onpropertychange", log);
+      }
+    }
+  </script>
 </head>
 <body>
 	<label>UL with white space</label>

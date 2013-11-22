@@ -167,7 +167,7 @@
         });
       }
     });
-    cb();
+    cb(elements);
   }
   function done(cb, elements) {
     var evDone;
