@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>white-space: none; - white-space-fast.js</title>
+	<link href="unordered-list.css" rel="stylesheet"/>
+</head>
+<body>
+	<form onsubmit="return(applyWhiteSpaceFix())">
+		<input type="submit" value="Run white-space:none; script"/>
+	</form>
+	<label>UL with white space</label>
+	<ul>
+		<li>Lorem</li>
+		<li>Ipsum</li>
+		<li>Lorem</li>
+		<li>Ipsum</li>
+	</ul>
+
+	<label>UL with-out white space</label>
+	<ul>
+		<li>Lorem</li><li>Ipsum</li><li>Lorem</li><li>Ipsum</li>
+	</ul>
+	<script>
+		function applyWhiteSpaceFix(e) {
+			e && e.preventDefault();
+			var script = document.createElement("script");
+			script.src = "../../white-space-fast.js";
+			document.getElementsByTagName('head')[0].appendChild(script);
+			script = null;
+			return false;
+		}
+	</script>
+</body>
+</html>
