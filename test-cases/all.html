@@ -24,7 +24,9 @@
       if(document.addEventListener) {
         document.addEventListener("WhiteSpaceDone", log, true);
       } else if(document.attachEvent) {
-        document.attachEvent("WhiteSpaceDone", log);
+        document.attachEvent("onactivate", function(target) {
+          console.log(event.propertyName + "::" + target + "::" + window.event.fromElement);
+        });
       }
     }
   </script>
