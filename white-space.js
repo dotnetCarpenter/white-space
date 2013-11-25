@@ -176,15 +176,22 @@
     else if(doc.implementation.hasFeature("Events", "3.0")){ // IE9+
       evDone = doc.createEvent("CustomEvent");
       evDone.initCustomEvent("WhiteSpaceDone", true, true, undefined);
-    } else if(doc.documentElement.attachEvent) { // IE8
+    } else if(doc.createEventObject) { // IE9-
+      console.log("IE8::WhiteSpaceDone::fired");
+      var first = elements[0];
+      var activeElement = doc.activeElement;
+      first.setActive();
+      first.WhiteSpaceDone = true;
+      activeElement.setActive();
+      first = activeElement = null;
       // var mother = elements[0];// note: "parent" refer to the window object's parent
       // mother.WhiteSpaceDone = false; // expando
       // mother.WhiteSpaceDone = true;  // will trigger onpropertychange in IE8
-      evDone = doc.createEventObject();
-      // //evDone.WhiteSpaceDone = true;
-      // elements[0].fireEvent("WhiteSpaceDone", evDone);
-      evDone.expando = "WhiteSpaceDone";
-      elements[0].fireEvent("onpropertychange", evDone);
+      // evDone = doc.createEventObject();
+      // // //evDone.WhiteSpaceDone = true;
+      // // elements[0].fireEvent("WhiteSpaceDone", evDone);
+      // evDone.expando = "WhiteSpaceDone";
+      // elements[0].fireEvent("onpropertychange", evDone);
       return cb();  // exit
     }
     if(elements && elements.length) {
