@@ -1,7 +1,10 @@
 {
   "name": "css-white-space-none",
   "version": "1.2.0-beta",
-  "main": ["white-space.js", "white-space-fast.js"],
+  "main": [
+    "white-space.js",
+    "white-space-fast.js"
+  ],
   "ignore": [
     "**/.*",
     "node_modules",
@@ -11,6 +14,7 @@
   ],
   "devDependencies": {
     "grunt": "~0.4.1",
-    "grunt-contrib-uglify": "~0.2.1"
+    "grunt-contrib-uglify": "~0.2.1",
+    "jquery": "1"
   }
 }
