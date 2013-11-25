@@ -28,7 +28,7 @@
 
   // start program
   iterator.call(stylesheets, function(sheet) { // the composition is called for each external stylesheet
-    if(!sheet.href)
+    if(!sheet.href) // skip style sections as they are not retrievable with ajax
       return;
     compose(
       ajax,
