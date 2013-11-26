@@ -3,7 +3,7 @@
 
 ## Polyfill for the proposed white-space:none; CSS property
 
-`white-space: none;` is a highly requested feature of the CSS Text Module but is, as time of writing, only recognized as [an issue in CSS Text Module Level 3](http://www.w3.org/TR/css3-text/#pre-line).
+`white-space: none;` is a highly requested feature of the CSS Text Module but is, as time of writing, only recognized as [an issue in CSS Text Module Level 3 (Issue 3)](http://www.w3.org/TR/2012/WD-css3-text-20121113/#pre-line). Issue 3 has since then been removed from the specs.
 
 Original written as a proof-of-concept, I've found `white-space: none;` really useful and it's now ready for development usage. You're probably better off using HTML comments, HTML minification or similar in production but for development, it's pretty *tight*.
 
@@ -21,7 +21,7 @@ I encourage you to experiement with the exact placement of `white-space-fast.min
 ```css
   .foo {
     display: inline-block;
-    white-space: none;
+    white-space: none; /* this is the API which removes white space based on your CSS selector */
   }
 ```
 
@@ -40,7 +40,7 @@ OR
 <script src="bower_components/css-white-space-none/white-space-fast.min.js"></script>
 ```
 
-### Listen for WhiteSpaceDone
+### Listen for WhiteSpaceDone <sup>not IE8</sup>
 When the `white-space: none;` rule has been enforced, the parent element dispatch a `WhiteSpaceDone` event. You can listen on the document and use the target property to determine which elements children has `white-space: none;` applied.
 ```javascript
 document.addEventListener("WhiteSpaceDone", function(e) {
@@ -49,10 +49,10 @@ document.addEventListener("WhiteSpaceDone", function(e) {
 ```
 
 ## Size
-+ `white-space.min.js` 1.85 KB (minified)
-+ `white-space.min.js.gz` 952 Bytes (gzipped)
-+ `white-space-fast.min.js` 1.69 KB (minified)
-+ `white-space-fast.min.js.gz` 893 Bytes (gzipped)
++ `white-space.min.js` 2050 bytes (minified)
++ `white-space.min.js.gz` 1044 bytes (gzipped)
++ `white-space-fast.min.js` 1833 bytes (minified)
++ `white-space-fast.min.js.gz` 893 bytes (gzipped)
 
 ## Issues
 `white-space: none;` comes with a few known limitations, you need to cater for.
@@ -91,7 +91,7 @@ So far there is one use case, three test cases and one test case that include al
 \* Click the "Run white-space:none; script" button at the top
 
 ## Tested in
-+ FF24, Chr30, IE10, IE9, IE8 on Win7 (`white-space-fast.js` doesn't support for IE8)
++ FF24, Chr30, IE10, IE9, IE8 on Win7 (`white-space-fast.js` doesn't support IE8)
 + IE10, IE9, IE8 on Win8 (`white-space-fast.js` doesn't support for IE8)
 + FF24, FF21, Saf7, Saf6, Chr30, Chr27, Op17, Op12 on OSX10.7 (Lion)
 + Internet (android stock browser) 4.0.4, Dolfin 10.1, FF24, Chr30, Op12.1.4 on Android 4.0.4
@@ -105,7 +105,7 @@ So far there is one use case, three test cases and one test case that include al
 + http://lists.w3.org/Archives/Public/www-style/2013Apr/subject.html#msg497
 
 ### Changelog
-+ 1.2.0 - Fires *WhiteSpaceDone* on parent element when white space is removed, fix bug where ajax called was made to *none* when the document contain <style> element(s), added gzipped versions
++ 1.2.0 - Fires *WhiteSpaceDone* on parent element when white space is removed, fix bug where ajax called was made to *none* when the document contain \<style\> element(s), added gzipped versions
 + 1.1.1 - fix DOM ready detection for Android 2.3
 + 1.1.0 - New white-space-fast.js implementation
 + 1.0.1 - handle css without selectors
