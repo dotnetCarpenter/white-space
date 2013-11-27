@@ -124,14 +124,14 @@
   // INFO: http://www.whatwg.org/specs/web-apps/current-work/multipage/the-end.html#the-end
   function domReady(cb, selectors) {
     var events = [];
-    console.log(selectors);
+    // console.log(selectors);
     // doc.readyState == 'interactive' prematurely in IE9
     // note to others: tilde makes -1 zero aka falsy
     var notIE9 = !(~navigator.appName.indexOf("Internet Explorer") &&
                  ~navigator.appVersion.indexOf("MSIE 9"));
     console.log("notIE9" + notIE9)
     if (doc.readyState == 'complete' || (notIE9 && doc.readyState == 'interactive') || doc.readyState == 'loaded') { // loaded - fix android 2.3
-      console.log(doc.readyState);
+      // console.log(doc.readyState);
       iterator.call(events, function(e) {
         removeEvent(e);
       });
