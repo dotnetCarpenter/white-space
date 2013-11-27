@@ -125,7 +125,7 @@
   function domReady(cb, selectors) {
     var events = [];
     if (doc.readyState == 'complete' || doc.readyState == 'interactive' || doc.readyState == 'loaded') { // loaded - fix android 2.3
-      //console.log(doc.readyState);
+      console.log(doc.readyState);
       iterator.call(events, function(e) {
         removeEvent(e);
       });
@@ -163,7 +163,7 @@
     var evDone;
     if(document.implementation.hasFeature("Events", "4.0"))
       evDone = new Event("WhiteSpaceDone");
-    else { // IE
+    else if(doc.implementation.hasFeature("Events", "3.0")) { // IE9+ et al.
       evDone = doc.createEvent("CustomEvent");
       evDone.initCustomEvent("WhiteSpaceDone", true, true, undefined);
       // Probably better to use a generic event:
@@ -174,7 +174,7 @@
     if(elements && elements.length) {
       elements[0].parentNode.dispatchEvent(evDone);
     } else {
-      doc.dispatchEvent(evDone);
+      doc.documentElement.dispatchEvent(evDone);
     }
     cb();
   }
