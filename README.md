@@ -42,7 +42,10 @@ OR
 
 ### Listen for WhiteSpaceDone <sup>not IE8</sup>
 When the `white-space: none;` rule has been enforced, the parent element dispatch a `WhiteSpaceDone` event. You can listen on the document and use the target property to determine which elements children has `white-space: none;` applied.
+
 ```javascript
+// always attach event listeners before they can be triggered to avoid race conditions,
+// e.g. this snippet should be before you include white-space-fast.js
 document.addEventListener("WhiteSpaceDone", function(e) {
   console.dir(e.target);
 }, true); // set useCapture to true if you're not listening on the element dispatching WhiteSpaceDone
@@ -51,8 +54,8 @@ document.addEventListener("WhiteSpaceDone", function(e) {
 ## Size
 + `white-space.min.js` 2050 bytes (minified)
 + `white-space.min.js.gz` 1044 bytes (gzipped)
-+ `white-space-fast.min.js` 1833 bytes (minified)
-+ `white-space-fast.min.js.gz` 893 bytes (gzipped)
++ `white-space-fast.min.js` 2015 bytes (minified)
++ `white-space-fast.min.js.gz` 1062 bytes (gzipped)
 
 ## Issues
 `white-space: none;` comes with a few known limitations, you need to cater for.
@@ -105,6 +108,7 @@ So far there is one use case, three test cases and one test case that include al
 + http://lists.w3.org/Archives/Public/www-style/2013Apr/subject.html#msg497
 
 ### Changelog
++ 1.2.1 - Fixed removal of white-space prematuraly in IE9 for white-space-fast.js (see #5)
 + 1.2.0 - Fires *WhiteSpaceDone* on parent element when white space is removed, fix bug where ajax called was made to *none* when the document contain \<style\> element(s), added gzipped versions
 + 1.1.1 - fix DOM ready detection for Android 2.3
 + 1.1.0 - New white-space-fast.js implementation
