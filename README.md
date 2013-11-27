@@ -42,7 +42,10 @@ OR
 
 ### Listen for WhiteSpaceDone <sup>not IE8</sup>
 When the `white-space: none;` rule has been enforced, the parent element dispatch a `WhiteSpaceDone` event. You can listen on the document and use the target property to determine which elements children has `white-space: none;` applied.
+
 ```javascript
+// always attach event listeners before they can be triggered to avoid race conditions,
+// e.g. this snippet should be before you include white-space-fast.js
 document.addEventListener("WhiteSpaceDone", function(e) {
   console.dir(e.target);
 }, true); // set useCapture to true if you're not listening on the element dispatching WhiteSpaceDone
