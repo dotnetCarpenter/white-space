@@ -110,7 +110,7 @@ So far there is one use case, three test cases and one test case that include al
 ### Changelog
 + 1.2.2 - A debug statement slipped into `white-space-fast.js` - it's now removed
 + 1.2.1 - Fixed removal of white-space prematuraly in IE9 for `white-space-fast.js` (see [#5](https://github.com/dotnetCarpenter/white-space/issues/5))
-+ 1.2.0 - Fires *WhiteSpaceDone* on parent element when white space is removed, fix bug where ajax called was made to *none* when the document contain \<style\> element(s), added gzipped versions
++ 1.2.0 - Fires *WhiteSpaceDone* on parent element when white space is removed, fix bug where ajax call was made to *none* when the document contain \<style\> element(s), added gzipped versions
 + 1.1.1 - fix DOM ready detection for Android 2.3
 + 1.1.0 - New white-space-fast.js implementation
 + 1.0.1 - handle css without selectors
