@@ -12,12 +12,23 @@ module.exports = function(grunt) {
           'white-space-fast.min.js': ['white-space-fast.js']
         }
       }
+    },
+    compress: {
+      main: {
+        options: {
+          mode: 'gzip',
+          pretty: true
+        },
+        expand: true,
+        src: ['*.min.js']
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-compress');
 
   // Register building task
-  grunt.registerTask('default', ['uglify']); // for convenience
-  grunt.registerTask('build', ['uglify']);
+  grunt.registerTask('default', ['uglify', 'compress']); // for convenience
+  grunt.registerTask('build', ['uglify', 'compress']);
 }

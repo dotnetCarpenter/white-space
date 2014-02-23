@@ -1,7 +1,7 @@
 /**
  * Polyfill for the proposed white-space:none; CSS property
  * http://lists.w3.org/Archives/Public/www-style/2013Apr/subject.html#msg472
- * @version 2013.10.2 (v1.1.1)
+ * @version 2013.10.3 (v1.2.0)
  */
 ;(function whiteSpace(doc, win) {
   "use strict";
@@ -11,7 +11,7 @@
   var empty = /\s+/;
   var stylesheets = doc.styleSheets;  // is a StyleSheetList which can not be converted to an array (in FF)
   var stop = null;
-  var optimist = function() { // continuation passing style - runs all supplied functions unless there is an rejection, then it stops.
+  var compose = function() { // continuation passing style - runs all supplied functions unless there is an rejection, then it stops.
     function next(){
       var args = getArguments.call(arguments);
       var currentFn = this.shift();
@@ -22,24 +22,29 @@
     return continuation;
   }
 
-  // var perf;
-  // perf = win.performance.now();
-
   // start program
-  iterator.call(stylesheets, function(sheet) { // optimist is called for each stylesheet
-    optimist(
+  iterator.call(stylesheets, function(sheet) { // the composition is called for each external stylesheet
+    if(!sheet.href)
+      return;
+    compose(
       ajax,
       parseCss,
       once(domReady),
-      removeWhiteSpace/*,
+      removeWhiteSpace,
+      done/*,
       timer*/
     )(sheet.href);
   });
   // end program
 
-  // function timer(cb) {
-  //   console.log(win.performance.now() - perf);
-  //   cb();
+  // function timer() {    
+  //   var perf = win.performance.now();
+  //   return function(cb) {
+  //     console.log(win.performance.now() - perf);
+  //     // call the next function with all the arguments minus the call-back
+  //     var args = Array.prototype.splice.call(arguments, 1);
+  //     cb.apply(undefined, args );
+  //   }
   // }
 
   function once(fn) {
@@ -53,11 +58,20 @@
     }
   }
 
-  function addEvent(element, event, listener) {
+  function addEvent(element, type, listener) {
     if(element.addEventListener) {
-      element.addEventListener(event, listener, false);
+      element.addEventListener(type, listener, false);
     } else if(element.attachEvent) {
-      element.attachEvent('on' + event, listener);
+      element.attachEvent('on' + type, listener);
+    }
+    return { el:element, t:type, l:listener };
+  }
+  function removeEvent(e) {
+    if(e.el.removeEventListener){
+      e.el.removeEventListener(e.type, l, false);
+    }
+    else if(e.el.detachEvent){
+      e.el.detachEvent('on' + e.type, l);
     }
   }
   
@@ -114,20 +128,25 @@
   }
   // INFO: http://www.whatwg.org/specs/web-apps/current-work/multipage/the-end.html#the-end
   function domReady(cb, selectors) {
+    var events = [];
     if (doc.readyState == 'complete' || doc.readyState == 'loaded') { // loaded - fix android 2.3
       // console.log(doc.readyState);
+      iterator.call(events, function(e) {
+        removeEvent(e);
+      });
       cb(selectors);
     } else {
-      addEvent(doc, 'DOMContentLoaded', function() { cb(selectors); } ); // fix for android 2.3
-      addEvent(doc, 'readystatechange', function() { domReady(cb, selectors); });
+      events.push(addEvent(doc, 'DOMContentLoaded', function() { cb(selectors); } )); // fix for android 2.3
+      events.push(addEvent(doc, 'readystatechange', function() { domReady(cb, selectors); }));
     }
   }
   function removeWhiteSpace(cb, selectors) {
     //console.dir(arguments);
-    var outerEmpty = /^\s+|\s+$/g;
+    var outerEmpty = /^\s+|\s+$/g,
+        elements;
     iterator.call(selectors, function(selector) {
       // console.log("selector", selector);
-      var elements = doc.querySelectorAll(selector);
+      elements = doc.querySelectorAll(selector);
       if(elements.length > 0) {
         //console.log(elements);
         iterator.call(elements, function(el) {
@@ -149,5 +168,26 @@
       }
     });
     cb();
-}
+  }
+  function done(cb, elements) {
+    var evDone;
+    if(doc.implementation.hasFeature("Events", "4.0"))
+      evDone = new Event("WhiteSpaceDone");
+    else if(doc.implementation.hasFeature("Events", "3.0")){ // IE9+
+      evDone = doc.createEvent("CustomEvent");
+      evDone.initCustomEvent("WhiteSpaceDone", true, true, undefined);
+    } else { // IE8
+      // Probably better to use a generic event:
+      //http://www.w3.org/TR/DOM-Level-2-Events/events.html#Events-Event
+      // Guide:
+      //http://www.howtocreate.co.uk/tutorials/javascript/domevents
+      return cb();
+    }
+    if(elements && elements.length) {
+      elements[0].parentNode.dispatchEvent(evDone);
+    } else {
+      doc.dispatchEvent(evDone);
+    }
+    cb();
+  }
 })(document, window);

@@ -6,6 +6,15 @@
 	<link href="unordered-list.css" rel="stylesheet"/>
 	<link href="trebuchet-overflow.css" rel="stylesheet"/>
 	<link href="images-as-list.css" rel="stylesheet"/>
+    <script>
+    if(document.addEventListener) {
+       document.addEventListener("WhiteSpaceDone", log, true);
+    }
+    function log(e) {
+      if(console && console.log)
+        console.log("WhiteSpaceDone triggered on " + e.target);
+    }
+  </script>
   <script type="text/javascript" src="../../white-space-fast.js"></script>
 </head>
 <body>
