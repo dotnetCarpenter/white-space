@@ -153,7 +153,11 @@
         iterator.call(elements, function(el) {
           var nodesToDelete = traverse(el, []);
           iterator.call(nodesToDelete, function(node) {
-            el.parentNode.removeChild(node);
+            try {
+              el.parentNode.removeChild(node);
+            } catch(e) {
+              console.log(e.message)
+            }
           });
         });
         // iterator.call(elements, function(el) {
