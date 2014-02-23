@@ -176,21 +176,23 @@
     cb(elements);
   }
   function traverse(node, i) {
+    var del = false, sibling;
     if (node.firstChild) {
       traverse(node.firstChild, i);
     }
 
     if (node.nodeType === 3) {
-      console.log("text node " + i + ": " + node.nodeValue);
+      //console.log("text node " + i + ": " + node.nodeValue);
       if (node.nodeValue !== '') {
-        console.log("text node " + i + " is not null");
+        //console.log("text node " + i + " is not null");
       }
       if (node.nodeValue.match(/(\r\n|\r|\n|\s+)+/g)) {
-        console.log("nonsense node");
+        del = true
       }
     }
-
-    if (node.nextSibling) {
+    sibling = node.nextSibling;
+    node.parentNode.removeChild(node);
+    if (sibling) {
       traverse(node.nextSibling, i);
     }
   }
