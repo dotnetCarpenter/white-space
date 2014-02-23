@@ -150,7 +150,10 @@
       if(elements.length > 0) {
         //console.log(elements);
         //elements[0].parentNode.normalize();
-        iterator.call(elements, traverse);
+        iterator.call(elements, function(el) {
+          var nodesToDelete = traverse(el, []);
+          ;
+        });
         // iterator.call(elements, function(el) {
         //   var content = el.outerHTML,
         //   adjacent = el.nextSibling;
@@ -175,10 +178,9 @@
     });
     cb(elements);
   }
-  function traverse(node, i) {
-    var del = false, sibling;
+  function traverse(node, deletables) {
     if (node.firstChild) {
-      traverse(node.firstChild, i);
+      traverse(node.firstChild, deletables);
     }
 
     if (node.nodeType === 3) {
@@ -187,13 +189,11 @@
         //console.log("text node " + i + " is not null");
       }
       if (node.nodeValue.match(/(\r\n|\r|\n|\s+)+/g)) {
-        del = true
+        deletables.push(node);
       }
     }
-    sibling = node.nextSibling;
-    node.parentNode.removeChild(node);
-    if (sibling) {
-      traverse(node.nextSibling, i);
+    if (node.nextSibling) {
+      traverse(node.nextSibling, deletables);
     }
   }
   function done(cb, elements) {
