@@ -185,7 +185,7 @@
       if (node.nodeValue !== '') {
         console.log("text node " + i + " is not null");
       }
-      if (node.nodeValue.match(/(\r\n|\r|\n)+/g)) {
+      if (node.nodeValue.match(/(\r\n|\r|\n|\s+)+/g)) {
         console.log("nonsense node");
       }
     }
