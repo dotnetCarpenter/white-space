@@ -169,7 +169,7 @@
     var evDone;
     if(document.implementation.hasFeature("Events", "4.0"))
       evDone = new Event("WhiteSpaceDone");
-    else if(doc.implementation.hasFeature("Events", "3.0")) { // IE9+ et al.
+    else if(doc.createEvent/*doc.implementation.hasFeature("Events", "3.0")*/) { // IE9+ et al. -- see bug #8
       evDone = doc.createEvent("CustomEvent");
       evDone.initCustomEvent("WhiteSpaceDone", true, true, undefined);
       // Probably better to use a generic event:
