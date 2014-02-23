@@ -167,7 +167,7 @@
         });
       }
     });
-    cb();
+    cb(elements);
   }
   function done(cb, elements) {
     var evDone;
@@ -176,7 +176,16 @@
     else if(doc.createEvent/*doc.implementation.hasFeature("Events", "3.0")*/) { // IE9+ et al. -- see bug #8
       evDone = doc.createEvent("CustomEvent");
       evDone.initCustomEvent("WhiteSpaceDone", true, true, undefined);
-    } else { // IE8
+    } else if(doc.createEventObject) { // IE8
+      evDone = doc.createEventObject();
+      evDone.expando = "WhiteSpaceDone";
+      if(elements && elements.length) {
+        elements[0].parentNode.fireEvent(evDone);
+      } else {
+        doc.fireEvent(evDone);
+      }
+      return cb();
+    } else { // give up... :(
       // Probably better to use a generic event:
       //http://www.w3.org/TR/DOM-Level-2-Events/events.html#Events-Event
       // Guide:
