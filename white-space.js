@@ -185,9 +185,9 @@
     cb(elements);
   }
   function traverse(node, deletables) {
-    if (node.firstChild) {
-      traverse(node.firstChild, deletables);
-    }
+    // if (node.firstChild) {
+    //   traverse(node.firstChild, deletables);
+    // }
 
     if (node.nodeType === 3) {
       //console.log("text node " + i + ": " + node.nodeValue);
