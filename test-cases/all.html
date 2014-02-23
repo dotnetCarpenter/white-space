@@ -8,8 +8,8 @@
 	<link href="images-as-list.css" rel="stylesheet"/>
   <script type="text/javascript" src="../white-space.js"></script>
   <script>
-    if(document.addEventListener) {
-       document.addEventListener("WhiteSpaceDone", log, true);
+    if(document.attachEvent) {
+       document.attachEvent("onafterupdate", log);
     }
     function log(e) {
       if(console && console.log)
