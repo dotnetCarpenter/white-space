@@ -177,11 +177,11 @@
   }
   function traverse(node, i) {
     if (node.firstChild) {
-      traverse(node.firstChild);
+      traverse(node.firstChild, i);
     }
 
     if (node.nodeType === 3) {
-      console.log("text node " + ++i + ": " + node.nodeValue);
+      console.log("text node " + i + ": " + node.nodeValue);
       if (node.nodeValue !== '') {
         console.log("text node " + i + " is not null");
       }
@@ -191,7 +191,7 @@
     }
 
     if (node.nextSibling) {
-      traverse(node.nextSibling);
+      traverse(node.nextSibling, i);
     }
   }
   function done(cb, elements) {
