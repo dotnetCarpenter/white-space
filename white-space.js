@@ -175,7 +175,7 @@
     });
     cb(elements);
   }
-  function traverse(node) {
+  function traverse(node, i) {
     if (node.firstChild) {
       traverse(node.firstChild);
     }
