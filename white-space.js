@@ -180,9 +180,9 @@
       evDone = doc.createEventObject();
       evDone.expando = "WhiteSpaceDone";
       if(elements && elements.length) {
-        elements[0].parentNode.fireEvent(evDone);
+        elements[0].parentNode.fireEvent("onreadystatechange", evDone);
       } else {
-        doc.fireEvent(evDone);
+        doc.fireEvent("onreadystatechange", evDone);
       }
       return cb();
     } else { // give up... :(
