@@ -148,8 +148,9 @@
       // console.log("selector", selector);
       elements = doc.querySelectorAll(selector);
       if(elements.length > 0) {
-        console.log(elements);
-        elements[0].parentNode.normalize();
+        //console.log(elements);
+        //elements[0].parentNode.normalize();
+        iterator.call(elements, traverse);
         // iterator.call(elements, function(el) {
         //   var content = el.outerHTML,
         //   adjacent = el.nextSibling;
@@ -173,6 +174,25 @@
       }
     });
     cb(elements);
+  }
+  function traverse(node) {
+    if (node.firstChild) {
+      traverse(node.firstChild);
+    }
+
+    if (node.nodeType === 3) {
+      console.log("text node " + ++i + ": " + node.nodeValue);
+      if (node.nodeValue !== '') {
+        console.log("text node " + i + " is not null");
+      }
+      if (node.nodeValue.match(/(\r\n|\r|\n)+/g)) {
+        console.log("nonsense node");
+      }
+    }
+
+    if (node.nextSibling) {
+      traverse(node.nextSibling);
+    }
   }
   function done(cb, elements) {
     var evDone;
