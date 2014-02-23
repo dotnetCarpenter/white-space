@@ -152,7 +152,9 @@
         //elements[0].parentNode.normalize();
         iterator.call(elements, function(el) {
           var nodesToDelete = traverse(el, []);
-          ;
+          iterator.call(nodesToDelete, function(node) {
+            el.parentNode.removeChild(node);
+          });
         });
         // iterator.call(elements, function(el) {
         //   var content = el.outerHTML,
@@ -195,6 +197,7 @@
     if (node.nextSibling) {
       traverse(node.nextSibling, deletables);
     }
+    return deletables;
   }
   function done(cb, elements) {
     var evDone;
