@@ -148,23 +148,28 @@
       // console.log("selector", selector);
       elements = doc.querySelectorAll(selector);
       if(elements.length > 0) {
-        //console.log(elements);
-        iterator.call(elements, function(el) {
-          var content = el.outerHTML,
-          adjacent = el.nextSibling;
-          if( outerEmpty.test(content) ) {
-            // trim the content - this works for IE8
-            el.outerHTML = content.replace(outerEmpty, '');
-          }
-          // remove empty text node next to out element
-          // works in all other browsers than IE8
-          if( adjacent
-            && adjacent.nodeType === 3
-            && empty.test(adjacent.nodeValue)
-          ) {
-            adjacent.parentNode.removeChild(adjacent);
-          }
-        });
+        console.log(elements);
+        elements[0].parentNode.normalize();
+        // iterator.call(elements, function(el) {
+        //   var content = el.outerHTML,
+        //   adjacent = el.nextSibling;
+        //   while(adjacent) {
+        //     if(adjacent.)
+        //     adjacent = adjacent.nextSibling;
+        //   }
+        //   // if( outerEmpty.test(content) ) {
+        //   //   // trim the content - this works for IE8
+        //   //   el.outerHTML = content.replace(outerEmpty, '');
+        //   // }
+        //   // remove empty text node next to out element
+        //   // works in all other browsers than IE8
+        //   // if( adjacent
+        //   //   && adjacent.nodeType === 3
+        //   //   && empty.test(adjacent.nodeValue)
+        //   // ) {
+        //   //   adjacent.parentNode.removeChild(adjacent);
+        //   // }
+        // });
       }
     });
     cb(elements);
@@ -179,10 +184,10 @@
     } else if(doc.createEventObject) { // IE8
       evDone = doc.createEventObject();
       evDone.expando = "WhiteSpaceDone";
-      if(elements && elements.length) {
-        elements[0].parentNode.FireEvent("onafterupdate", evDone);
+      if(elements && elements.length && elements[0].parentNode) {
+        elements[0].parentNode.FireEvent("onblur", evDone);
       } else {
-        doc.fireEvent("onafterupdate", evDone);
+        doc.fireEvent("onblur", evDone);
       }
       return cb();
     } else { // give up... :(
