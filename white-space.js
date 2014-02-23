@@ -1,7 +1,7 @@
 /**
  * Polyfill for the proposed white-space:none; CSS property
  * http://lists.w3.org/Archives/Public/www-style/2013Apr/subject.html#msg472
- * @version 2013.10.3 (v1.2.0)
+ * @version 2014.2.1 (v1.2.3)
  */
 ;(function whiteSpace(doc, win) {
   "use strict";
@@ -173,7 +173,7 @@
     var evDone;
     if(doc.implementation.hasFeature("Events", "4.0"))
       evDone = new Event("WhiteSpaceDone");
-    else if(doc.implementation.hasFeature("Events", "3.0")){ // IE9+
+    else if(doc.createEvent/*doc.implementation.hasFeature("Events", "3.0")*/) { // IE9+ et al. -- see bug #8
       evDone = doc.createEvent("CustomEvent");
       evDone.initCustomEvent("WhiteSpaceDone", true, true, undefined);
     } else { // IE8
