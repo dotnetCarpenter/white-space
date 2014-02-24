@@ -148,8 +148,17 @@
       // console.log("selector", selector);
       elements = doc.querySelectorAll(selector);
       if(elements.length > 0) {
+        // var parser = new ActiveXObject("Msxml2.DOMDocument.6.0");//ActiveXObject("Microsoft.XMLDOM");
+        // var parent = elements[0].parentNode.parentNode;
+        // var html = parent.innerHTML;
+        // parser.loadXML(html);
+        // elements[0].parentNode.innerHTML = "";
+        // parser.save(parent);
         //console.log(elements);
         //elements[0].parentNode.normalize();
+        //elements[0].parentNode.innerHTML = elements[0].parentNode.innerHTML.replace(/\s*/g, '')¨;
+        //var html = elements[0].parentNode.innerHTML;
+        //elements[0].parentNode.innerHTML = html.replace(/(\r\n|\r|\n|[^>]\s+[^<])+/g, '');
         iterator.call(elements, function(el) {
           var nodesToDelete = traverse(el, []);
           iterator.call(nodesToDelete, function(node) {
@@ -160,6 +169,7 @@
             }
           });
         });
+
         // iterator.call(elements, function(el) {
         //   var content = el.outerHTML,
         //   adjacent = el.nextSibling;
@@ -188,7 +198,7 @@
     // if (node.firstChild) {
     //   traverse(node.firstChild, deletables);
     // }
-
+    console.log(node.nodeType )
     if (node.nodeType === 3) {
       //console.log("text node " + i + ": " + node.nodeValue);
       if (node.nodeValue !== '') {
@@ -197,9 +207,12 @@
       if (node.nodeValue.match(/(\r\n|\r|\n|\s+)+/g)) {
         deletables.push(node);
       }
+    } else {
+      console.log(node.nodeName);
+      console.log(node.innerHTML);
     }
     if (node.nextSibling) {
-      traverse(node.nextSibling, deletables);
+      deletetables = traverse(node.nextSibling, deletables);
     }
     return deletables;
   }
