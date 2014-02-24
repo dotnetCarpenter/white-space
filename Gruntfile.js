@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
   grunt.initConfig({
+    bwr: grunt.file.readJSON('bower.json'),
     pkg: grunt.file.readJSON('package.json'),
     uglify: {
        options: {
@@ -27,6 +28,28 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-compress');
+
+  /* check if we remembered to sync versions in bower.json and package.json,
+   * the version from package.json is written in the banner */
+  grunt.registerTask('version', 'Test bower.json and package.json versions', function version() {
+    grunt.log.write('Checking if versions are in sync...');
+    grunt.config.requires('bwr.version');
+    grunt.config.requires('pkg.version');
+    if( grunt.config.data.bwr.version === grunt.config.data.pkg.version ) {
+      grunt.log.ok();
+      return true;
+    } else {
+      grunt.log.writeln("");
+      grunt.log.error(
+        'bower.json version '
+       + grunt.config.data.bwr.version
+       + ' is not in sync with package.json version '
+       + grunt.config.data.pkg.version
+       + '.'
+      );
+      return false;
+    }
+  });
 
   // Register building task
   grunt.registerTask('default', ['uglify', 'compress']); // for convenience
