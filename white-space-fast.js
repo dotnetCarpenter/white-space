@@ -5,7 +5,7 @@
  * This edition supports "DOMContentLoaded" instead of "complete" event. This mean that it's
  * faster than the ordinary white-space.js but you **MUST** place the white-space script *after*
  * your style sheets.
- * @version 2013.11.2 (v1.2.2)
+ * @version 2014.2.1 (v1.2.3)
  */
 ;(function whiteSpace(doc, win) {
   "use strict";
